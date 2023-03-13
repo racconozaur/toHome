@@ -1,0 +1,17 @@
+# dependencies
+<<<<<<< HEAD
+# dependencies
+=======
+>>>>>>> c4b698ef3f30b573023098e8c10fbad6ef554ddc
+server/node_modules
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.idea
+# dependencies
+client/node_modules
+
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> c4b698ef3f30b573023098e8c10fbad6ef554ddc

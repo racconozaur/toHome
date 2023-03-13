@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { updateModeration } from '../../actions/user'
+import { acceptPostFrom, denyPostFrom } from '../../actions/user'
 import Button from '../../utils/button/Button'
 import io from 'socket.io-client'
 
@@ -15,7 +15,12 @@ const PostInfo = (props) => {
 
 	const acceptHandler = () => {
 		socket.emit('send_message', { message, room })
-		// updateModeration(props.id)
+		acceptPostFrom(props.id)
+	}
+
+	const denyHandler = () => {
+		socket.emit('send_message', { message, room })
+		denyPostFrom(props.id)
 	}
 
 	useEffect(() => {
@@ -66,7 +71,12 @@ const PostInfo = (props) => {
 					>
 						Accept
 					</Button>
-					<Button className=' bg-red-400 w-20 h-12'>Deny</Button>
+					<Button 
+						className=' bg-red-400 w-20 h-12'
+						onClick={denyHandler}
+					>
+						Deny
+					</Button>
 				</div>
 				{/* <p>{t('Likes')}: {` ${onePost.likes.slice(0, 4)} ${onePost.likes.length > 5 ? `and ${onePost.likes.length - 5}` : ''}`}</p> */}
 			</div>

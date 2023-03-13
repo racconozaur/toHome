@@ -103,7 +103,10 @@ const Post = (props) => {
 
             <div className=' w-[60%] pl-8 text-cblue flex flex-col justify-between'>
                 <div className=''>
-                    <h2 className=' text-2xl font-semibold my-6'>Price: USD ${props.price}</h2>
+                    <div className='flex items-center justify-between'>
+                        <h2 className=' text-2xl font-semibold my-6'>Price: USD ${props.price}</h2>
+                        <p>{props.validation}</p>
+                    </div>
                     <h3 className=' text-lg font-medium'>Square: {props.square} m<sup>2</sup></h3>
                     <p className=' text-lg font-normal my-3'>Type: {props.type}</p>
                     <p className=' text-lg font-normal my-3'>Rooms: {props.rooms}</p>

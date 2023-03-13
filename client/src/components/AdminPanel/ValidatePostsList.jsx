@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from '../../handlers/axiosHandler';
-import Post from '../Posts/Post';
 import PostInfo from './PostInfo';
 
 const ValidatePosts = () => {
 
     const [validatePosts, setValidatedPosts] = useState([])
 
-    const getAllPosts = useCallback(async () => {
+    const getAllNotActivePosts = useCallback(async () => {
         try {
-            const res = await axios.get(`allposts`,
+            const res = await axios.get(`allnotactiveposts`,
 
                     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
         )
@@ -21,14 +20,13 @@ const ValidatePosts = () => {
     }, [])
 
     useEffect(() => {
-        getAllPosts()
+        getAllNotActivePosts()
 
-    }, [getAllPosts])
+    }, [getAllNotActivePosts])
 
     console.log(validatePosts);
 
     const  allNotModeratedPosts = validatePosts.map(e => {
-        if(e.moderated === false){
             return (
                 <PostInfo
                     key={e._id}
@@ -49,8 +47,6 @@ const ValidatePosts = () => {
                     moderated={e.moderated}
                 />
             )
-        }
-        return null 
     })
 
     return (

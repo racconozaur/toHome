@@ -122,9 +122,18 @@ export const dislikePost = async (id, username) => {
     }
 }
 
-export const updateModeration = async (id) => {
+export const acceptPostFrom = async (id) => {
     try {
-        await axios.patch(`moderateposts/${id}`)
+        await axios.patch(`acceptpostfrom/${id}`)
+        
+    } catch (e) {
+        alert(e.response.data.message)
+    }
+}
+
+export const denyPostFrom = async (id) => {
+    try {
+        await axios.patch(`denypostfrom/${id}`)
         
     } catch (e) {
         alert(e.response.data.message)

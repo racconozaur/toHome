@@ -266,6 +266,27 @@ router.get('/allposts', async (req, res) => {
 	}
 })
 
+router.get('/allactiveposts', async (req, res) => {
+	try {
+		const recomendation = await Recomendation.find({moderated: true})
+		return res.json(recomendation)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.get('/allnotactiveposts', async (req, res) => {
+	try {
+		const recomendation = await Recomendation.find({validation: 'under review'})
+		return res.json(recomendation)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+
 router.delete(`/deletepost/:id`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.id })
@@ -330,16 +351,6 @@ router.patch(`/likepost/:id`, async (req, res) => {
 
 // })
 
-router.get(`/getpostsfrom/:sender`, async (req, res) => {
-	try {
-		const post = await Recomendation.find({ sender: req.params.sender })
-		return res.json(post)
-	} catch (e) {
-		console.log(e)
-		res.send({ message: 'Server error' })
-	}
-})
-
 router.get(`/getonepost/:postid`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.postid })
@@ -350,11 +361,56 @@ router.get(`/getonepost/:postid`, async (req, res) => {
 	}
 })
 
-router.patch(`/moderateposts/:id`, async (req, res) => {
+router.get(`/getpostsfrom/:sender`, async (req, res) => {
+	try {
+		const post = await Recomendation.find({ sender: req.params.sender })
+		return res.json(post)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.get(`/getactivepostsfrom/:sender`, async (req, res) => {
+	try {
+		const post = await Recomendation.find({ sender: req.params.sender, moderated: true })
+		return res.json(post)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.get(`/getreviewpostsfrom/:sender`, async (req, res) => {
+	try {
+		const post = await Recomendation.find({ sender: req.params.sender, moderated: false })
+		return res.json(post)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+
+
+router.patch(`/acceptpostfrom/:id`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.id })
 		post.moderated = post.moderated == true ? false : true
 		post.validation = 'accepted'
+		post.save()
+		return res.status(204).json({})
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.patch(`/denypostfrom/:id`, async (req, res) => {
+	try {
+		const post = await Recomendation.findOne({ _id: req.params.id })
+		post.moderated = false
+		post.validation = 'denied'
 		post.save()
 		return res.status(204).json({})
 	} catch (e) {

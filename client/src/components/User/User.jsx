@@ -13,7 +13,7 @@ import { NavLink } from 'react-router-dom'
 import ButtonFilter from '../../utils/button/ButtonFilter'
 import { useCallback } from 'react'
 import MenuCard from '../AdminPanel/MenuCard'
-import ModeratedPosts from '../Posts/ModeratedPosts'
+import UserPosts from '../Posts/UserPosts'
 import io from 'socket.io-client'
 
 const socket = io.connect('http://localhost:5000')
@@ -24,23 +24,11 @@ const User = (props) => {
 	const { t } = useTranslation()
 
 	const [userInfo, setUserInfo] = useState([])
-	const [posts, setPosts] = useState([])
-
-	let { path, url } = useRouteMatch()
 
 	const getoneuser = useCallback(async (email) => {
 		try {
 			const res = await axios.get(`getoneuser/${email}`)
 			setUserInfo(res.data)
-		} catch (e) {
-			alert(e.response.data.message)
-		}
-	}, [])
-
-	const getPostsFrom = useCallback(async (sender) => {
-		try {
-			const res = await axios.get(`getpostsfrom/${sender}`)
-			setPosts(res.data)
 		} catch (e) {
 			alert(e.response.data.message)
 		}
@@ -70,42 +58,18 @@ const User = (props) => {
 
 	useEffect(() => {
 		getoneuser(email)
-		getPostsFrom(email)
-	}, [getoneuser, getPostsFrom, email])
+	}, [getoneuser, email])
 
 	// test
 	const [msg, setMsg] = useState('')
 
 	useEffect(() => {
 		socket.on('receive_message', (data) => {
-			console.log(data.message)
 			setMsg(data.message)
 		})
 	}, [])
 
-	console.log(isConnected, socket.id)
-
-	const data = posts.map((e) => {
-		return (
-			<Post
-				key={e._id}
-				id={e._id}
-				sender={e.sender}
-				title={e.title}
-				content={e.content}
-				img={e.image}
-				location={e.location}
-				price={e.price}
-				square={e.square}
-				status={e.status}
-				type={e.type}
-				likes={e.likes}
-				number={e.number}
-				rooms={e.rooms}
-				moderated={e.moderated}
-			/>
-		)
-	})
+	console.log(isConnected, socket.id, msg)
 
 	return (
 		<>
@@ -190,46 +154,8 @@ const User = (props) => {
 					</div>
 				</div>
 
-				<div className=' w-2/4 mx-auto '>
-					<div className='flex my-9 border-b-2'>
-						<NavLink
-							className='mx-4 py-2 border-cblue'
-							activeClassName='border-b-2 text-cyellow'
-							to={`${url}/moderatedPosts`}
-						>
-							Active Posts
-						</NavLink>
-						<NavLink
-							className='mx-4 py-2 border-cblue'
-							activeClassName='border-b-2 text-cyellow'
-							to={`${url}/onModerationPosts`}
-						>
-							On Moderation
-						</NavLink>
-					</div>
-					<h2 className=' text-black text-2xl font-medium ml-4 my-9'>
-						{t('Your posts')}
-						Message: {msg}
-					</h2>
-					{posts.length > 0 ? (
-						<div className=' w-full'>{data.reverse()}</div>
-					) : (
-						<div className=' dark:text-white'>
-							{t('loading')}...
-						</div>
-					)}
-				</div>
+				<UserPosts email={email} msg={msg}/>
 			</div>
-
-			<Switch>
-				<Route exact path={path}></Route>
-				<Route path={`${path}/moderatedPosts`}>
-					<ModeratedPosts/>
-				</Route>
-				<Route path={`${path}/onModerationPosts`}>
-					<ValidatePosts />
-				</Route>
-			</Switch>
 		</>
 	)
 }

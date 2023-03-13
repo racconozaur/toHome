@@ -1,7 +1,7 @@
-# ITransition Intern
+# toHome BIS Project
 ## _Final Task _
 
-Simple Recomendation application using:
+Stack:
 
 - React
 - NodeJs
@@ -9,7 +9,7 @@ Simple Recomendation application using:
 
 ### Web-Page
 
-https://taskfouritransition.herokuapp.com/login
+
 
 ## Installation
 

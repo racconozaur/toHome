@@ -35,5 +35,10 @@
     "Your posts": "Ваши посты",
     "Add Post": "Добавить пост",
     "loading": "Загрузка",
-    "Number of rooms": "Колличество комнат"
+    "Number of rooms": "Колличество комнат",
+    "Title": "Заголовок",
+    "Price": "Цена",
+    "Type": "Тип",
+    "Square": "Площадь",
+    "Location": "Локация"
 }

@@ -303,12 +303,27 @@ router.delete(`/deletepost/:id`, async (req, res) => {
 router.patch(`/post/:id`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.id })
-		const { title, content, rate, category, hashtags } = req.body
+		const {
+			title,
+			status,
+			type,
+			rooms,
+			square,
+			location,
+			price,
+			content,
+		} = req.body
+
 		post.title = title
+		post.status = status
 		post.content = content
-		post.rate = rate
-		post.category = category
-		post.hashtags = hashtags
+		post.type = type
+		post.rooms = rooms
+		post.square = square
+		post.location = location
+		post.price = price
+		post.moderated = false
+		post.validation = 'under review'
 		post.save()
 		return res.status(204).json({})
 	} catch (e) {

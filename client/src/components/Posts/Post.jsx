@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { deletePost, likePost, updatePost } from '../../actions/user';
 import { useSelector} from "react-redux";
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+
 import {Link} from "react-router-dom";
 import JsPDF from 'jspdf';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment, AiOutlineEdit, AiOutlineCheck, AiOutlineDelete, AiOutlineFilePdf, AiTwotoneStar } from "react-icons/ai";

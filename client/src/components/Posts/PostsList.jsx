@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import Button from '../../utils/button/Button'
 import Post from './Post'
 import { useTranslation } from 'react-i18next'
 import axios from '../../handlers/axiosHandler'

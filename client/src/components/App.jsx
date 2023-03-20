@@ -59,15 +59,16 @@ function App() {
 						</Route>
 						<Route path='/registration' component={Registration} />
 						<Route path='/login' component={Login} />
-						<Route exact path='*' component={NotFound} />
+						
 
 						<Route path='/postinfo'>
 							<PostDescription />
 						</Route>
+						<Route exact path='*' component={NotFound} />
 					</Switch>
 				)}
 
-				{isAuth ? (
+				{isAuth && (
 					<Switch>
 						<Route path='/' exact>
 							<Redirect to='/all' />
@@ -99,7 +100,7 @@ function App() {
 
 						<Route path='*' component={NotFound} />
 					</Switch>
-				) : null}
+				)}
 
 				{/* {isAdmin && isAuth ? (
 					<Switch>

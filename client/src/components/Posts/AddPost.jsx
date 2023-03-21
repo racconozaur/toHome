@@ -5,7 +5,6 @@ import { BsImage } from "react-icons/bs";
 import { sendPost } from '../../actions/user';
 import { useLocation } from 'react-router-dom';
 import {Link} from "react-router-dom";
-import Modal from '../../utils/modal/Modal';
 
 const AddPost = (props) => {
     const {t} = useTranslation()

@@ -28,7 +28,7 @@ const Navbar = (props) => {
     }
 
     return (
-        <header className='bg-cyellow h-[70px] w-full flex items-center mb-9 relative z-40'>
+        <header className='bg-cyellow h-[70px] w-full flex items-center z-40 fixed top-0'>
             <nav className='flex justify-between items-center container mx-auto px-4 lg:px-0'>
 
                 <NavLink

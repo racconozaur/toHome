@@ -8,7 +8,7 @@ import NotFound from './nooFound/NotFound'
 import { useDispatch, useSelector } from 'react-redux'
 import { auth } from '../actions/user'
 import User from './User/User'
-import PostsList from './Posts/PostsList'
+import PostsWrapper from './Posts/PostsWrapper'
 import PostDescription from './Posts/PostDescription'
 import MenuCard from './AdminPanel/MenuCard'
 import useLocalstorage from '../hooks/use-localstorage'
@@ -48,14 +48,14 @@ function App() {
 				handleLenguageChange={handleLenguageChange}
 				language={language}
 			/>
-			<main className='px-4 lg:px-0 '>
+			<main className='px-4 mt-[70px] lg:px-0 '>
 				{!isAuth && (
 					<Switch>
 						<Route path='/' exact>
 							<Redirect to='/all' />
 						</Route>
 						<Route path='/all' exact>
-							<PostsList />
+							<PostsWrapper />
 						</Route>
 						<Route path='/registration' component={Registration} />
 						<Route path='/login' component={Login} />
@@ -74,7 +74,7 @@ function App() {
 							<Redirect to='/all' />
 						</Route>
 						<Route path='/all'>
-							<PostsList />
+							<PostsWrapper />
 						</Route>
 						<Route path={'/user'}>
 							<User />

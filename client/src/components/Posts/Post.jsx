@@ -10,89 +10,89 @@ import { useTranslation } from 'react-i18next';
 
 const Post = (props) => {
 
-    const user = localStorage.getItem('user')
+    // const user = localStorage.getItem('user')
 
-    const [edit, setEdit] = useState(false)
-    const [recomendation, setRecomendation] = useState('')
-    const [desc, setDesc] = useState('')
-    const [updateRare, setUpdatedRate] = useState(0)
-    const [updateTag, setUpdatedTag] = useState('')
-    const [liked, setLiked] = useState(props.likes.includes(user))
+    // const [edit, setEdit] = useState(false)
+    // const [recomendation, setRecomendation] = useState('')
+    // const [desc, setDesc] = useState('')
+    // const [updateRare, setUpdatedRate] = useState(0)
+    // const [updateTag, setUpdatedTag] = useState('')
+    // const [liked, setLiked] = useState(props.likes.includes(user))
     
-    const {t} = useTranslation()
+    // const {t} = useTranslation()
 
-    const options = [
-        {value: '', text: '--Choose an option--'},
-        {value: 'Games', text: 'Games'},
-        {value: 'Films', text: 'Films'},
-        {value: 'Music', text: 'Music'},
-        {value: 'Books', text: 'Books'},
-      ];
+    // const options = [
+    //     {value: '', text: '--Choose an option--'},
+    //     {value: 'Games', text: 'Games'},
+    //     {value: 'Films', text: 'Films'},
+    //     {value: 'Music', text: 'Music'},
+    //     {value: 'Books', text: 'Books'},
+    //   ];
 
-    const [selected, setSelected] = useState(options[1].value);
+    // const [selected, setSelected] = useState(options[1].value);
 
-    const deleteHandler = async () => {
-        console.log(props.id);
-        deletePost(props.id)
-        setTimeout(() => {
-            window.location.reload()
-        }, 500)
+    // const deleteHandler = async () => {
+    //     console.log(props.id);
+    //     deletePost(props.id)
+    //     setTimeout(() => {
+    //         window.location.reload()
+    //     }, 500)
         
         
-    }
+    // }
 
-    const editHandler = () => {
-        setEdit(!edit)
-    }
+    // const editHandler = () => {
+    //     setEdit(!edit)
+    // }
 
-    const saveHandler = async () => {
-        if (recomendation.trim() === '' || 
-            desc.trim() === '' ||
-            updateRare.trim() === '' ||
-            selected.trim() === '' ||
-            updateTag.trim() === ''
-            ){
-            setEdit(!edit)
-        }
-        else{
-            updatePost(props.id, recomendation, desc, updateRare, selected, updateTag)
-            setRecomendation('')
-            setDesc('')
-            setUpdatedRate(0)
-            setSelected(options[1].value)
-            setUpdatedTag('')
-            setEdit(!edit)
-        }
+    // const saveHandler = async () => {
+    //     if (recomendation.trim() === '' || 
+    //         desc.trim() === '' ||
+    //         updateRare.trim() === '' ||
+    //         selected.trim() === '' ||
+    //         updateTag.trim() === ''
+    //         ){
+    //         setEdit(!edit)
+    //     }
+    //     else{
+    //         updatePost(props.id, recomendation, desc, updateRare, selected, updateTag)
+    //         setRecomendation('')
+    //         setDesc('')
+    //         setUpdatedRate(0)
+    //         setSelected(options[1].value)
+    //         setUpdatedTag('')
+    //         setEdit(!edit)
+    //     }
         
-    }
+    // }
 
-    const likeHandler = () => {
-        likePost(props.id, user)
-        setLiked(!liked)
-    }
+    // const likeHandler = () => {
+    //     likePost(props.id, user)
+    //     setLiked(!liked)
+    // }
 
-    const handleChange = event => {
-        setSelected(event.target.value);
-      };
+    // const handleChange = event => {
+    //     setSelected(event.target.value);
+    //   };
 
-    const loc = window.location.pathname
+    // const loc = window.location.pathname
 
-    const generatePDF = async () => {
-        let img = new Image()
-        img.src = `${props.img}`
+    // const generatePDF = async () => {
+    //     let img = new Image()
+    //     img.src = `${props.img}`
 
-        const pdf = new JsPDF('portrait','pt','a4')
-        pdf.text(`Author: ${props.sender}`, 10, 20)
-        pdf.text(`Rate: ${props.rate}`, 10, 40)
-        pdf.text(`Category: ${props.category}`, 10, 60)
-        pdf.text(`Likes: ${props.likes}`, 10, 80)
-        pdf.text(`Title: ${props.title}`, 10, 100)
-        pdf.text(`Description: ${props.category}`, 10, 120)
-        pdf.text(`Tags: ${props.hashtags}`, 10, 140)
-        pdf.addImage(img, 'png', 10, 160)
+    //     const pdf = new JsPDF('portrait','pt','a4')
+    //     pdf.text(`Author: ${props.sender}`, 10, 20)
+    //     pdf.text(`Rate: ${props.rate}`, 10, 40)
+    //     pdf.text(`Category: ${props.category}`, 10, 60)
+    //     pdf.text(`Likes: ${props.likes}`, 10, 80)
+    //     pdf.text(`Title: ${props.title}`, 10, 100)
+    //     pdf.text(`Description: ${props.category}`, 10, 120)
+    //     pdf.text(`Tags: ${props.hashtags}`, 10, 140)
+    //     pdf.addImage(img, 'png', 10, 160)
         
-        await pdf.save(`${props.title}.pdf`)
-    }
+    //     await pdf.save(`${props.title}.pdf`)
+    // }
 
     return (
         <div className=' lg:flex rounded-lg w-full mx-0 lg:mx-auto border-2 border-black drop-shadow-xl p-8 my-8 bg-white dark:bg-slate-800 dark:border-white ' id='report'>

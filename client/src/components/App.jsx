@@ -15,6 +15,8 @@ import useLocalstorage from '../hooks/use-localstorage'
 import i18n from '../i18n'
 import AddPost from './Posts/AddPost'
 import ValidatePosts from './AdminPanel/ValidatePostsList'
+import DefaultView from './Posts/DefaultView'
+import MapView from './Posts/MapView'
 
 function App() {
 	const isAuth = useSelector((state) => state.user.isAuth)
@@ -54,12 +56,17 @@ function App() {
 						<Route path='/' exact>
 							<Redirect to='/all' />
 						</Route>
-						<Route path='/all' exact>
+						<Route path='/all' >
 							<PostsWrapper />
 						</Route>
+						{/* <Route path={`/all/posts`}>
+							<DefaultView />
+						</Route>
+						<Route path={`/all/map`}>
+							<MapView />
+						</Route> */}
 						<Route path='/registration' component={Registration} />
 						<Route path='/login' component={Login} />
-						
 
 						<Route path='/postinfo'>
 							<PostDescription />
@@ -95,7 +102,7 @@ function App() {
 							) : null
 						} */}
 						<Route path={'/admin'}>
-							<MenuCard/>
+							<MenuCard />
 						</Route>
 
 						<Route path='*' component={NotFound} />

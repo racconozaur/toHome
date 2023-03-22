@@ -1,24 +1,23 @@
-import React from 'react';
-import PostsList from './PostsList';
+import React from 'react'
+import MapLocal from '../Map/MapLocal'
+import PostsList from './PostsList'
 
 const MapView = () => {
-    return (
-        <div className='w-full flex relative'>
-            <div className='flex flex-col w-4/12 '>
-              <PostsList/>  
-            </div>
-            <div className='flex ml-5 h-screen w-8/12  relative'>
-                
-                <div className='fixed bg-slate-400 h-screen w-[1114px]'>
-                    asd
-                </div>
-                
-                
-                    
-              
-            </div>
-        </div>
-    );
-};
+	return (
+		<div className='w-full flex relative overflow-hidden'>
+			<div className='flex flex-col w-4/12 relative  overflow-scroll'>
+				<div className='flex flex-col absolute mx-2'>
+					<PostsList />
+				</div>
+			</div>
+			<div className='flex flex-col mx-2 w-8/12  '>
+				{/* <div className='fixed h-screen w-[1114px]'>
+					
+				</div> */}
+				<MapLocal />
+			</div>
+		</div>
+	)
+}
 
-export default MapView;
+export default MapView

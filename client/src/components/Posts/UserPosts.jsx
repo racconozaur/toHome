@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import axios from '../../handlers/axiosHandler'
 import Post from './Post'
+import { AiOutlineUser, AiOutlineFilePpt } from "react-icons/ai";
 
 const UserPosts = (props) => {
 	const [posts, setPosts] = useState([])

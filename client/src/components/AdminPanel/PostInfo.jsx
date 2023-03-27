@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { acceptPostFrom, denyPostFrom } from '../../actions/user'
 import Button from '../../utils/button/Button'
 import io from 'socket.io-client'
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import { useTranslation } from 'react-i18next'
+import MapCard from '../Map/MapCard'
 
 const socket = io.connect('http://localhost:5000')
 
 const PostInfo = (props) => {
 	const [isConnected, setIsConnected] = useState(socket.connected)
+
+
+	const { t } = useTranslation()
 
 	const message = 'hello'
 	const room = props.sender
@@ -36,6 +43,10 @@ const PostInfo = (props) => {
 			socket.off('disconnect')
 		}
 	}, [])
+
+
+	
+
     console.log(isConnected, socket.id)
 	return (
 		<div className='flex flex-col w-8/12 ml-60'>
@@ -55,8 +66,15 @@ const PostInfo = (props) => {
 					<p>
 						Square: {props.square} m<sup>2</sup>
 					</p>
-					<p>Location: {props.location}</p>
+					<p>Location: Longitude: {props.location.longitude.toFixed(4)} | Latitude:
+					{props.location.latitude.toFixed(4)}</p>
 					<p>Description: {props.content}</p>
+
+					<div>
+						{t('Location')}:Latitude: {props.location.latitude.toFixed(4)}{' '}
+						| Longitude: {props.location.longitude.toFixed(4)}
+						<MapCard location={props.location}/>
+					</div>
 
 					<p className='font-bold mb-4'>Contact Details: </p>
 					<p>Name: {props.name}</p>

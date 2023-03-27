@@ -109,7 +109,8 @@ const Post = (props) => {
                     <h3 className=' text-lg font-medium'>Square: {props.square} m<sup>2</sup></h3>
                     <p className=' text-lg font-normal my-3'>Type: {props.type}</p>
                     <p className=' text-lg font-normal my-3'>Rooms: {props.rooms}</p>
-                    <p className=' text-lg font-normal my-3'>Location: {props.location}</p>
+                    <p className=' text-lg font-normal my-3'>Location: Longitude {props.location.longitude.toFixed(4)} | Latitude:
+					{props.location.latitude.toFixed(4)}</p>
                 </div>
 
                 <div className='flex justify-end'>
@@ -118,6 +119,7 @@ const Post = (props) => {
                             pathname: '/postinfo',
                             state: {
                                 postId: props.id,
+                                location: props.location
                             }
                         }}
                     >

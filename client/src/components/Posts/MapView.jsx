@@ -10,7 +10,7 @@ const MapView = () => {
 					<PostsList />
 				</div>
 			</div>
-			<div className='flex flex-col mx-2 w-8/12  '>
+			<div className='flex flex-col mx-2 w-8/12 h-screen  '>
 				{/* <div className='fixed h-screen w-[1114px]'>
 					
 				</div> */}

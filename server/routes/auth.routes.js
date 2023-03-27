@@ -209,7 +209,7 @@ router.post(
 						price,
 						content,
 					} = req.body
-
+					
 					const result = await cloudinary.uploader.upload(
 						req.file.path,
 						{
@@ -217,6 +217,8 @@ router.post(
 							crop: 'fill',
 						}
 					)
+
+					let objLoc = JSON.parse(location)
 
 					const message = new Recomendation({
 						sender,
@@ -227,12 +229,15 @@ router.post(
 						type,
 						rooms,
 						square,
-						location,
+						location: {
+							longitude: objLoc.longitude,
+							latitude: objLoc.latitude,
+						},
 						price,
 						content,
 						image: result.url,
 						moderated: false,
-						validation: 'under review'
+						validation: 'under review',
 					})
 					message
 						.save()
@@ -268,7 +273,7 @@ router.get('/allposts', async (req, res) => {
 
 router.get('/allactiveposts', async (req, res) => {
 	try {
-		const recomendation = await Recomendation.find({moderated: true})
+		const recomendation = await Recomendation.find({ moderated: true })
 		return res.json(recomendation)
 	} catch (e) {
 		console.log(e)
@@ -278,14 +283,15 @@ router.get('/allactiveposts', async (req, res) => {
 
 router.get('/allnotactiveposts', async (req, res) => {
 	try {
-		const recomendation = await Recomendation.find({validation: 'under review'})
+		const recomendation = await Recomendation.find({
+			validation: 'under review',
+		})
 		return res.json(recomendation)
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
 	}
 })
-
 
 router.delete(`/deletepost/:id`, async (req, res) => {
 	try {
@@ -303,16 +309,8 @@ router.delete(`/deletepost/:id`, async (req, res) => {
 router.patch(`/post/:id`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.id })
-		const {
-			title,
-			status,
-			type,
-			rooms,
-			square,
-			location,
-			price,
-			content,
-		} = req.body
+		const { title, status, type, rooms, square, location, price, content } =
+			req.body
 
 		post.title = title
 		post.status = status
@@ -388,7 +386,10 @@ router.get(`/getpostsfrom/:sender`, async (req, res) => {
 
 router.get(`/getactivepostsfrom/:sender`, async (req, res) => {
 	try {
-		const post = await Recomendation.find({ sender: req.params.sender, moderated: true })
+		const post = await Recomendation.find({
+			sender: req.params.sender,
+			moderated: true,
+		})
 		return res.json(post)
 	} catch (e) {
 		console.log(e)
@@ -398,15 +399,16 @@ router.get(`/getactivepostsfrom/:sender`, async (req, res) => {
 
 router.get(`/getreviewpostsfrom/:sender`, async (req, res) => {
 	try {
-		const post = await Recomendation.find({ sender: req.params.sender, moderated: false })
+		const post = await Recomendation.find({
+			sender: req.params.sender,
+			moderated: false,
+		})
 		return res.json(post)
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
 	}
 })
-
-
 
 router.patch(`/acceptpostfrom/:id`, async (req, res) => {
 	try {

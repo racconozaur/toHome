@@ -18,6 +18,9 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Comments from './Comments/Comments'
 import { updatePost } from '../../actions/user'
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import MapCard from '../Map/MapCard'
 
 const PostDescription = (props) => {
 	const isAuth = useSelector((state) => state.user.isAuth)
@@ -26,11 +29,9 @@ const PostDescription = (props) => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const locationStste = useLocation()
-	const { postId } = locationStste.state
+	const { postId, location } = locationStste.state
 
 	const [onePost, setOnePost] = useState({})
-
-	console.log(userEmail)
 
 	const [edit, setEdit] = useState(false)
 	const [newTitle, setNewTitle] = useState('')
@@ -77,9 +78,9 @@ const PostDescription = (props) => {
 
 	useEffect(() => {
 		getOnePost()
-        return () => {
-            setOnePost([])
-        }
+		return () => {
+			setOnePost([])
+		}
 	}, [getOnePost])
 
 	const editHandler = () => {
@@ -88,30 +89,38 @@ const PostDescription = (props) => {
 
 	const saveHandler = async () => {
 		// setEdit(!edit)
-		if (newTitle.trim() === '' ||
-        newPrice.trim() === null ||
-        newRooms.trim() === null ||
-        newSquare.trim() === null ||
-        newLocation.trim() === '' ||
-        newDescription.trim() === '' ||
-        status.trim() === '' ||
-        type.trim() === ''
-        
-		    ){
-		    setEdit(!edit)
-            
-		}
-		else{
-		    updatePost(postId, newTitle, status, type, newRooms, newSquare, newLocation, newPrice, newDescription)
-		    setNewTitle('')
-		    setNewPrice(0)
-		    setNewRooms(0)
-            setNewSquare(0)
-		    setType(optionsType[1].value)
-            setStatus(optionsStatus[1].value)
-            setNewLocation('')
-            setNewDescription('')
-		    setEdit(!edit)
+		if (
+			newTitle.trim() === '' ||
+			newPrice.trim() === null ||
+			newRooms.trim() === null ||
+			newSquare.trim() === null ||
+			newLocation.trim() === '' ||
+			newDescription.trim() === '' ||
+			status.trim() === '' ||
+			type.trim() === ''
+		) {
+			setEdit(!edit)
+		} else {
+			updatePost(
+				postId,
+				newTitle,
+				status,
+				type,
+				newRooms,
+				newSquare,
+				newLocation,
+				newPrice,
+				newDescription
+			)
+			setNewTitle('')
+			setNewPrice(0)
+			setNewRooms(0)
+			setNewSquare(0)
+			setType(optionsType[1].value)
+			setStatus(optionsStatus[1].value)
+			setNewLocation('')
+			setNewDescription('')
+			setEdit(!edit)
 		}
 	}
 
@@ -255,26 +264,6 @@ const PostDescription = (props) => {
 							</>
 						)}
 					</p>
-					<p>
-						{t('Location')}:{' '}
-						{edit === false ? (
-							onePost.location
-						) : (
-							<>
-								{onePost.location}
-								<input
-									value={newLocation}
-									onChange={(e) =>
-										setNewLocation(e.target.value)
-									}
-									type='text'
-									className='px-3 py-2 text-black bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block  rounded-md sm:text-sm focus:ring-1'
-									placeholder={t('Location')}
-									required
-								/>
-							</>
-						)}
-					</p>
 					<div>
 						{t('Description')}:{' '}
 						{edit === false ? (
@@ -298,6 +287,14 @@ const PostDescription = (props) => {
 								/>
 							</>
 						)}
+					</div>
+
+					<div>
+						{t('Location')}:Latitude: {location.latitude.toFixed(4)}{' '}
+						| Longitude: {location.longitude.toFixed(4)}
+						
+
+						<MapCard location={location}/>
 					</div>
 
 					{/* <p>{t('Likes')}: {` ${onePost.likes.slice(0, 4)} ${onePost.likes.length > 5 ? `and ${onePost.likes.length - 5}` : ''}`}</p> */}
@@ -343,7 +340,7 @@ const PostDescription = (props) => {
 				) : null}
 			</div>
 
-			<Comments postId={postId} isAuth={isAuth} userEmail={userEmail}/>
+			<Comments postId={postId} isAuth={isAuth} userEmail={userEmail} />
 		</div>
 	)
 }

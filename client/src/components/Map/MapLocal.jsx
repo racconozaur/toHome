@@ -1,45 +1,34 @@
 import React, { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
-mapboxgl.accessToken =
-	'pk.eyJ1IjoiYnlqYXNhIiwiYSI6ImNsOXB1ZTI2NjBhczQzbnA1cDJ3bm4xMXkifQ.qOlKEri6fcPTKGGOEUt5Jw'
 
 const MapLocal = () => {
-	const mapContainerRef = useRef(null)
-
-	const [lng, setLng] = useState(69.2477)
-	const [lat, setLat] = useState(41.2866)
-	const [zoom, setZoom] = useState(11)
-
-	useEffect(() => {
-		const map = new mapboxgl.Map({
-			container: mapContainerRef.current,
-			style: 'mapbox://styles/mapbox/streets-v11',
-			center: [lng, lat],
-			zoom: zoom,
-		})
-
-		map.addControl(new mapboxgl.NavigationControl(), 'top-right')
-
-		map.on('move', () => {
-			setLng(map.getCenter().lng.toFixed(4))
-			setLat(map.getCenter().lat.toFixed(4))
-			setZoom(map.getZoom().toFixed(2))
-		})
-
-		// Clean up on unmount
-		return () => map.remove()
-	}, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+	const [viewport, setViewport] = useState({
+		longitude: 69.2477,
+		latitude: 41.2866,
+		zoom: 11,
+		width: '100%',
+		height: '100vh',
+	})
 	return (
-		<>
-			<div className=''>
+
+			<div className=' h-screen'>
 				<div>
-					Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+					Longitude: {viewport.longitude} | Latitude:{' '}
+					{viewport.latitude} | Zoom: {viewport.zoom}
 				</div>
+				<ReactMapGL
+					{...viewport}
+					mapStyle='mapbox://styles/mapbox/streets-v11'
+					mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+					onMove={(newViewport) => setViewport(newViewport)}
+				>
+					<NavigationControl position='bottom-right' />
+				</ReactMapGL>
 			</div>
-			<div className=' h-screen w-full' ref={mapContainerRef} />
-		</>
+
 	)
 }
 

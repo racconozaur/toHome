@@ -21,6 +21,7 @@ const ValidatePosts = () => {
 
     useEffect(() => {
         getAllNotActivePosts()
+        
 
     }, [getAllNotActivePosts])
 

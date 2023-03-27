@@ -32,7 +32,7 @@ const Navbar = (props) => {
             <nav className='flex justify-between items-center container mx-auto px-4 lg:px-0'>
 
                 <NavLink
-                    to='/'
+                    to='/all/posts'
                 >
                     <img src={logo} alt='logo' />
                 </NavLink>

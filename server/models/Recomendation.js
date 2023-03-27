@@ -1,5 +1,10 @@
 const {Schema, model, ObjectId} = require("mongoose")
 
+const Location = new Schema({
+    longitude: {type: Number},
+    latitude: {type: Number}
+})
+
 const Message = new Schema({
     sender: {type: String, required: true },
     name: {type: String},
@@ -9,7 +14,7 @@ const Message = new Schema({
     type: {type: String},
     rooms: {type: Number},
     square: {type: Number},
-    location: {type: String},
+    location: Location,
     price: {type: Number},
     content: {type: String},
     image: {type: String},

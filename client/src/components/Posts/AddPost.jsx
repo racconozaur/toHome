@@ -5,9 +5,10 @@ import { BsImage } from 'react-icons/bs'
 import { sendPost } from '../../actions/user'
 import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import ReactMapGL, { Marker, NavigationControl, } from 'react-map-gl'
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl'
+import Geocoder from 'mapbox-gl-geocoder'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
@@ -24,7 +25,6 @@ const AddPost = (props) => {
 	const [price, setPrice] = useState(0)
 	const [image, setImage] = useState()
 
-	
 	const [locationMarker, setLocationMarker] = useState({
 		longitude: 69.2477,
 		latitude: 41.2866,
@@ -34,8 +34,8 @@ const AddPost = (props) => {
 		longitude: 69.2477,
 		latitude: 41.2866,
 		zoom: 11,
-        width: '100%',
-    height: '100%',
+		width: '100%',
+		height: '100%',
 	})
 
 	function handleMapClick(event) {
@@ -44,6 +44,8 @@ const AddPost = (props) => {
 			longitude: event.lngLat.lng,
 		})
 	}
+
+	const [address, setAddress] = useState('')
 
 	const [drag, setDrag] = useState(false)
 
@@ -139,14 +141,12 @@ const AddPost = (props) => {
 			setType('')
 			setRooms(0)
 			setSquare(0)
-			setLocationMarker({longitude: 69.2477,
-                latitude: 41.2866,})
+			setLocationMarker({ longitude: 69.2477, latitude: 41.2866 })
 			setPrice(0)
 			setContent('')
 			setImage()
 		}
 	}
-
 
 	return (
 		<>
@@ -233,34 +233,36 @@ const AddPost = (props) => {
 				/>
 
 				<p className='mt-4 mb-2'>
-					Location: Longitude: {locationMarker.longitude.toFixed(4)} | Latitude:
-					{locationMarker.latitude.toFixed(4)} 
+					Location: Longitude: {locationMarker.longitude.toFixed(4)} |
+					Latitude:
+					{locationMarker.latitude.toFixed(4)}
 				</p>
 				<div className='h-96 relative border shadow-sm border-cblue'>
 					<ReactMapGL
 						{...viewport}
 						mapStyle='mapbox://styles/mapbox/streets-v11'
-						mapboxApiAccessToken={
-							'pk.eyJ1IjoiYnlqYXNhIiwiYSI6ImNsOXB1YjRtbDB1ZWIzb211NnV6cmFxMmMifQ.EZkR03CkcTIq3-VjJ2f1bA'
-						}
+						mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
 						onMove={(newViewport) => setViewport(newViewport)}
 						onClick={handleMapClick}
 					>
 						{locationMarker.latitude &&
-							locationMarker.longitude && (<>
-								<Marker
-									latitude={locationMarker.latitude}
-									longitude={locationMarker.longitude}
-									draggable
-									onDragEnd={(event) =>
-										{setLocationMarker({
-											latitude: event.lngLat.lat,
-											longitude: event.lngLat.lng,
-										})
-                                        console.log(locationMarker) }
-									}
-								/>
-                                <NavigationControl position="bottom-right" /></>
+							locationMarker.longitude && (
+								<>
+									<Marker
+										latitude={locationMarker.latitude}
+										longitude={locationMarker.longitude}
+										draggable
+										onDragEnd={(event) => {
+											setLocationMarker({
+												latitude: event.lngLat.lat,
+												longitude: event.lngLat.lng,
+											})
+											console.log(locationMarker)
+										}}
+									/>
+									
+									<NavigationControl position='bottom-right' />
+								</>
 							)}
 					</ReactMapGL>
 				</div>

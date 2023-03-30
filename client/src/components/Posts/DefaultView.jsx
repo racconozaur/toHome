@@ -3,14 +3,14 @@ import Input from '../../utils/input/Input'
 import ButtonFilter from '../../utils/button/ButtonFilter'
 import PostsList from './PostsList'
 
-const DefaultView = () => {
+const DefaultView = (props) => {
 	return (
 		<div className='w-10/12 container mx-auto flex justify-between'>
 			<div className=' w-2/3 '>
 				<h2 className=' text-black text-2xl font-medium ml-10'>
 					Results
 				</h2>
-				<PostsList />
+				<PostsList postData={props.postData}/>
 			</div>
 
 			<div className=' w-[29%] h-[550px] mt-16 border-black text-cblue border-2 rounded-2xl drop-shadow'>

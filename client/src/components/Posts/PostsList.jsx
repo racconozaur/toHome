@@ -1,39 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import axios from '../../handlers/axiosHandler';
-import Post from './Post';
+import React from 'react'
+import Post from './Post'
 
-const PostsList = () => {
-
-    const [postData, setPostData] = useState([])
-
-    const getAllActivePosts = useCallback(async () => {
-		try {
-			const res = await axios.get(
-				`allactiveposts`,
-
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
-					},
-				}
-			)
-			setPostData(res.data)
-			return res.data
-		} catch (e) {
-			console.log(e)
-		}
-	}, [])
-
-    useEffect(() => {
-		getAllActivePosts()
-        return () => {
-            setPostData([])
-        }
-	}, [getAllActivePosts])
-
-    const allPosts = postData.map((e) => {
+const PostsList = (props) => {
+	const allPosts = props.postData.map((e) => {
 		return (
 			<Post
 				key={e._id}
@@ -55,11 +24,7 @@ const PostsList = () => {
 		)
 	})
 
-    return (
-        <>
-            {allPosts.reverse()}
-        </>
-    );
-};
+	return <>{allPosts.reverse()}</>
+}
 
-export default PostsList;
+export default PostsList

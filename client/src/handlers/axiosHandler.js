@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5000/api/auth/";
+axios.defaults.baseURL = process.env.REACT_APP_BACK_API;
 
 
 

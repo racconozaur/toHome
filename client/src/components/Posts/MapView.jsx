@@ -5,8 +5,34 @@ import axios from '../../handlers/axiosHandler'
 
 const MapView = (props) => {
 
+	const [postData, setPostData] = useState([])
 
+	const getAllActivePosts = useCallback(async () => {
+		try {
+			const res = await axios.get(
+				`allactiveposts`,
 
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem(
+							'token'
+						)}`,
+					},
+				}
+			)
+			setPostData(res.data)
+			return res.data
+		} catch (e) {
+			console.log(e)
+		}
+	}, [])
+
+	useEffect(() => {
+		getAllActivePosts()
+        return () => {
+            setPostData([])
+        }
+	}, [getAllActivePosts])
 
 	return (
 		<div className='w-full flex relative overflow-hidden'>
@@ -16,7 +42,7 @@ const MapView = (props) => {
 				</div>
 			</div>
 			<div className='flex flex-col mx-2 w-8/12 h-screen  '>
-				<MapLocal postData={props.postData}/>
+				<MapLocal postData={postData}/>
 			</div>
 		</div>
 	)

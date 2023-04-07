@@ -7,10 +7,10 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
 import MapCard from '../Map/MapCard'
 
-const socket = io.connect('http://localhost:5000')
+// const socket = io.connect('http://localhost:5000')
 
 const PostInfo = (props) => {
-	const [isConnected, setIsConnected] = useState(socket.connected)
+	// const [isConnected, setIsConnected] = useState(socket.connected)
 
 
 	const { t } = useTranslation()
@@ -18,36 +18,36 @@ const PostInfo = (props) => {
 	const message = 'hello'
 	const room = props.sender
 
-	socket.emit('join_room', props.sender)
+	// socket.emit('join_room', props.sender)
 
 	const acceptHandler = () => {
-		socket.emit('send_message', { message, room })
+		// socket.emit('send_message', { message, room })
 		acceptPostFrom(props.id)
 	}
 
 	const denyHandler = () => {
-		socket.emit('send_message', { message, room })
+		// socket.emit('send_message', { message, room })
 		denyPostFrom(props.id)
 	}
 
-	useEffect(() => {
-		socket.on('connect', () => {
-			setIsConnected(true)
-		})
-		socket.on('disconnect', () => {
-			setIsConnected(false)
-		})
+	// useEffect(() => {
+	// 	socket.on('connect', () => {
+	// 		setIsConnected(true)
+	// 	})
+	// 	socket.on('disconnect', () => {
+	// 		setIsConnected(false)
+	// 	})
 
-		return () => {
-			socket.off('connect')
-			socket.off('disconnect')
-		}
-	}, [])
+	// 	return () => {
+	// 		socket.off('connect')
+	// 		socket.off('disconnect')
+	// 	}
+	// }, [])
 
 
 	
 
-    console.log(isConnected, socket.id)
+    // console.log(isConnected, socket.id)
 	return (
 		<div className='flex flex-col w-8/12 ml-60'>
 			<div className=' bg-white border-2 border-black rounded-lg'>

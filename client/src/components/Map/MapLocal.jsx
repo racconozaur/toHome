@@ -16,10 +16,10 @@ const MapLocal = (props) => {
 	return (
 
 			<div className=' h-screen'>
-				<div>
+				{/* <div>
 					Longitude: {viewport.viewState.longitude.toFixed(4)} | Latitude:{' '}
 					{viewport.viewState.latitude.toFixed(4)} | Zoom: {viewport.viewState.zoom.toFixed(4)}
-				</div>
+				</div> */}
 				<ReactMapGL
 					{...viewport}
 					mapStyle='mapbox://styles/mapbox/streets-v11'

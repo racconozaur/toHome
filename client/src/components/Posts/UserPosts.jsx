@@ -44,7 +44,7 @@ const UserPosts = (props) => {
             getRewiewPostsFrom(props.email)
         }
 		
-	}, [getActivePostsFrom, getRewiewPostsFrom, postsState, props.email, props.msg])
+	}, [getActivePostsFrom, getRewiewPostsFrom, postsState, props.email])
 
 	const data = posts.map((e) => {
 		return (
@@ -87,7 +87,7 @@ const UserPosts = (props) => {
 			</div>
 			<h2 className=' text-black text-2xl font-medium ml-4 my-9'>
 				{/* {t('Your posts')} */}
-				Message: {props.msg}
+				Message: 
 			</h2>
             <div className=' w-full'>{data.reverse()}</div>
             

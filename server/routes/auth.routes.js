@@ -10,7 +10,6 @@ const Recomendation = require('../models/Recomendation')
 const Comment = require('../models/Comment')
 const multer = require('multer')
 const path = require('path')
-const Tag = require('../models/Tag')
 const cloudinary = require('../helpers/uploadImageHelper')
 
 router.post(
@@ -487,18 +486,6 @@ router.get(`/getcommentsfrom/:postId`, async (req, res) => {
 	try {
 		const post = await Comment.find({ postId: req.params.postId })
 		return res.json(post)
-	} catch (e) {
-		console.log(e)
-		res.send({ message: 'Server error' })
-	}
-})
-
-// tags
-
-router.get('/alltags', async (req, res) => {
-	try {
-		const tags = await Tag.find({})
-		return res.json(tags)
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })

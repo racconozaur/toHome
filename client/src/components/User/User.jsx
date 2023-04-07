@@ -16,7 +16,7 @@ import MenuCard from '../AdminPanel/MenuCard'
 import UserPosts from '../Posts/UserPosts'
 import io from 'socket.io-client'
 
-const socket = io.connect('http://localhost:5000')
+// const socket = io.connect('http://localhost:5000')
 
 const User = (props) => {
 	const email = localStorage.getItem('user')
@@ -38,38 +38,38 @@ const User = (props) => {
 		dispatch(setAdmin())
 	}
 
-	const [isConnected, setIsConnected] = useState(socket.connected)
+	// const [isConnected, setIsConnected] = useState(socket.connected)
 
-	socket.emit('join_room', email)
+	// socket.emit('join_room', email)
 
-	useEffect(() => {
-		socket.on('connect', () => {
-			setIsConnected(true)
-		})
-		socket.on('disconnect', () => {
-			setIsConnected(false)
-		})
+	// useEffect(() => {
+	// 	socket.on('connect', () => {
+	// 		setIsConnected(true)
+	// 	})
+	// 	socket.on('disconnect', () => {
+	// 		setIsConnected(false)
+	// 	})
 
-		return () => {
-			socket.off('connect')
-			socket.off('disconnect')
-		}
-	}, [])
+	// 	return () => {
+	// 		socket.off('connect')
+	// 		socket.off('disconnect')
+	// 	}
+	// }, [])
 
 	useEffect(() => {
 		getoneuser(email)
 	}, [getoneuser, email])
 
 	// test
-	const [msg, setMsg] = useState('')
+	// const [msg, setMsg] = useState('')
 
-	useEffect(() => {
-		socket.on('receive_message', (data) => {
-			setMsg(data.message)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	socket.on('receive_message', (data) => {
+	// 		setMsg(data.message)
+	// 	})
+	// }, [])
 
-	console.log(isConnected, socket.id, msg)
+	// console.log(isConnected, socket.id, msg)
 
 	return (
 		<>
@@ -154,7 +154,7 @@ const User = (props) => {
 					</div>
 				</div>
 
-				<UserPosts email={email} msg={msg}/>
+				<UserPosts email={email}/>
 			</div>
 		</>
 	)

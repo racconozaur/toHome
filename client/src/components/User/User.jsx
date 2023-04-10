@@ -73,8 +73,8 @@ const User = (props) => {
 
 	return (
 		<>
-			<div className=' bg-white w-full container mx-auto py-9 h-full'>
-				<div className=' w-10/12 h-80 border-2 rounded-xl border-cblue mx-auto px-36 py-8 flex justify-between text-cblue'>
+			<div className=' bg-white w-full container mx-auto py-9 h-full dark:bg-slate-800'>
+				<div className=' w-10/12 h-80 border-2 rounded-xl border-cblue mx-auto px-36 py-8 flex justify-between text-cblue dark:border-white dark:text-slate-50'>
 					<div>
 						<div className='flex items-center'>
 							<div className='flex justify-center items-center bg-slate-50 w-24 h-24 text-slate-800 p-4 rounded-full text-4xl font-bold'>
@@ -154,7 +154,7 @@ const User = (props) => {
 					</div>
 				</div>
 
-				<UserPosts email={email}/>
+				<UserPosts email={email} />
 			</div>
 		</>
 	)

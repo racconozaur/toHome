@@ -308,7 +308,6 @@ const AddPost = (props) => {
 					</button>
 				</div>
 			</div>
-			{/* <Modal/> */}
 		</>
 	)
 }

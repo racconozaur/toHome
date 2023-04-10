@@ -1,4 +1,3 @@
-// import axios from 'axios'
 import { setUser } from '../reducers/userReducer'
 import axios from '../handlers/axiosHandler'
 
@@ -72,7 +71,7 @@ export const updateRole = async (id) => {
 	}
 }
 
-// post recomendation
+// posts
 
 export const sendPost = async (formData) => {
 	try {
@@ -98,7 +97,7 @@ export const updatePost = async (
 	type,
 	rooms,
 	square,
-	location,
+
 	price,
 	content
 ) => {
@@ -109,7 +108,7 @@ export const updatePost = async (
 			type,
 			rooms,
 			square,
-			location,
+
 			price,
 			content,
 		})
@@ -154,7 +153,7 @@ export const denyPostFrom = async (id) => {
 	}
 }
 
-// comment
+// comments
 
 export const sendComment = async (postId, comment, author) => {
 	try {

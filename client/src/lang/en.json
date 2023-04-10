@@ -40,7 +40,16 @@
     "Price": "Price",
     "Type": "Type",
     "Square": "Square",
-    "Location": "Location"
+    "Location": "Location",
+    "Contact Details": "Contact Details",
+    "List": "List",
+    "Map": "Map",
+    "View": "View",
+    "Results": "Results",
+    "Filter": "Filter",
+    "Active Posts": "Active Posts",
+    "On Moderation": "On Moderation"
+
 
 
     

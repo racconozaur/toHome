@@ -28,7 +28,7 @@ code {
 }
 
 .dark {
-  @apply bg-gray-800 
+  @apply bg-black
 }
 
 .white {

@@ -40,5 +40,13 @@
     "Price": "Цена",
     "Type": "Тип",
     "Square": "Площадь",
-    "Location": "Локация"
+    "Location": "Локация",
+    "Contact Details": "Контактные данные",
+    "List": "Лист",
+    "Map": "Карта",
+    "View": "Показать",
+    "Results": "Результаты",
+    "Filter": "Фильтер",
+    "Active Posts": "Активные Посты",
+    "On Moderation": "На Модерации"
 }

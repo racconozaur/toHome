@@ -2,10 +2,13 @@ import React, { useState, useCallback, useEffect } from 'react'
 import axios from '../../handlers/axiosHandler'
 import Post from './Post'
 import { AiOutlineUser, AiOutlineFilePpt } from "react-icons/ai";
+import { useTranslation } from 'react-i18next'
 
 const UserPosts = (props) => {
 	const [posts, setPosts] = useState([])
     const [postsState, setPostsState] = useState(true)
+
+	const { t } = useTranslation()
 
 	const getActivePostsFrom = useCallback(async (sender) => {
 		try {
@@ -73,21 +76,20 @@ const UserPosts = (props) => {
 		<div className=' w-2/4 mx-auto '>
 			<div className='flex my-9 border-b-2'>
 				<button
-					className={`mx-4 py-2 ${postsState ? 'border-cblue border-b-2 text-cyellow' : ''}`}
+					className={`mx-4 py-2 ${postsState ? 'border-cblue border-b-2 text-cyellow dark:border-white' : ''}`}
                     onClick={handleActive}
 				>
-					Active Posts
+					{t("Active Posts")}
 				</button>
 				<button
-					className={`mx-4 py-2 ${!postsState ? 'border-cblue border-b-2 text-cyellow' : ''}`}
+					className={`mx-4 py-2 ${!postsState ? 'border-cblue border-b-2 text-cyellow dark:border-white' : ''}`}
                     onClick={handleReview}
 				>
-					On Moderation
+					{t("On Moderation")}
 				</button>
 			</div>
-			<h2 className=' text-black text-2xl font-medium ml-4 my-9'>
-				{/* {t('Your posts')} */}
-				Message: 
+			<h2 className=' text-black text-2xl font-medium ml-4 my-9 dark:text-slate-50'>
+				{t('Your posts')}
 			</h2>
             <div className=' w-full'>{data.reverse()}</div>
             

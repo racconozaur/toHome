@@ -94,7 +94,6 @@ const PostDescription = (props) => {
 			newPrice.trim() === null ||
 			newRooms.trim() === null ||
 			newSquare.trim() === null ||
-			newLocation.trim() === '' ||
 			newDescription.trim() === '' ||
 			status.trim() === '' ||
 			type.trim() === ''
@@ -108,7 +107,6 @@ const PostDescription = (props) => {
 				type,
 				newRooms,
 				newSquare,
-				newLocation,
 				newPrice,
 				newDescription
 			)
@@ -121,6 +119,7 @@ const PostDescription = (props) => {
 			setNewLocation('')
 			setNewDescription('')
 			setEdit(!edit)
+			window.location.reload()
 		}
 	}
 
@@ -134,7 +133,7 @@ const PostDescription = (props) => {
 
 	return (
 		<div className=' container mx-auto'>
-			<div className='w-full  mx-0 text-cblue lg:mx-auto lg:w-5/12 my-4'>
+			<div className='w-full  mx-0 text-cblue lg:mx-auto lg:w-7/12  my-4'>
 				<div className='p-4 bg-white border-2 border-black rounded-lg'>
 					<img src={onePost.image} alt={onePost.img} />
 				</div>
@@ -301,10 +300,10 @@ const PostDescription = (props) => {
 				</div>
 
 				<div className=' p-4 my-4 bg-white border-2 border-blac rounded-lg text-lg'>
-					<p className='font-bold mb-4'>Contact Details: </p>
-					<p>Name: {onePost.name}</p>
+					<p className='font-bold mb-4'>{t('Contact Details')}: </p>
+					<p>{t('Name')}: {onePost.name}</p>
 					<p>Email: {onePost.sender}</p>
-					<p>Phone Number: {onePost.number}</p>
+					<p>{t('Number')}: {onePost.number}</p>
 				</div>
 
 				{userEmail === onePost.sender ? (

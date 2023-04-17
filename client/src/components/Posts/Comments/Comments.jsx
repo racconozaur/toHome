@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { sendComment } from '../../../actions/user'
+import { getCommentsFrom, sendComment } from '../../../actions/user'
 import axios from '../../../handlers/axiosHandler'
 import Button from '../../../utils/button/Button'
 import { useTranslation } from 'react-i18next'
@@ -13,30 +13,29 @@ const Comments = (props) => {
 
 	const user = localStorage.getItem('user')
 
-	const getCommentsFrom = useCallback(async () => {
-		try {
-			const res = await axios.get(`getcommentsfrom/${props.postId}`)
-			setComments(res.data)
-		} catch (e) {
-			alert(e.response.data.message)
-		}
-	}, [props.postId])
+	// const getCommentsFrom = useCallback(async () => {
+	// 	try {
+	// 		const res = await axios.get(`getcommentsfrom/${props.postId}`)
+	// 		setComments(res.data)
+	// 	} catch (e) {
+	// 		alert(e.response.data.message)
+	// 	}
+	// }, [props.postId])
 
 	const sendCommentHandler = async () => {
 		if (comment.trim() === '') {
 			alert('ur data is empty')
 		} else {
-			sendComment(props.postId, comment, user)
-			setComment('')
+			sendComment(props.postId, comment, user).then(setComment([]))
 		}
 	}
 
 	useEffect(() => {
-		getCommentsFrom()
+		getCommentsFrom(props.postId).then(res => setComments(res))
 		return () => {
 			setComments([])
 		}
-	}, [getCommentsFrom])
+	}, [props.postId])
 
 	const commentList = comments.map((e) => {
 		return (

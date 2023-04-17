@@ -1,60 +1,58 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import axios from '../../handlers/axiosHandler';
-import PostInfo from './PostInfo';
+import React, { useEffect, useState, useCallback } from 'react'
+import axios from '../../handlers/axiosHandler'
+import PostInfo from './PostInfo'
+import { getAllNotActivePosts } from '../../actions/user'
 
 const ValidatePosts = () => {
+	const [validatePosts, setValidatedPosts] = useState([])
 
-    const [validatePosts, setValidatedPosts] = useState([])
+	// const getAllNotActivePosts = useCallback(async () => {
+	//     try {
+	//         const res = await axios.get(`allnotactiveposts`,
 
-    const getAllNotActivePosts = useCallback(async () => {
-        try {
-            const res = await axios.get(`allnotactiveposts`,
+	//                 {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
+	//     )
+	//         setValidatedPosts(res.data)
+	//         return res.data
+	//     } catch (e) {
+	//         console.log(e);
+	//     }
+	// }, [])
 
-                    {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
-        )
-            setValidatedPosts(res.data)
-            return res.data
-        } catch (e) {
-            console.log(e);
-        }
-    }, [])
+	useEffect(() => {
+		getAllNotActivePosts().then((res) => setValidatedPosts(res))
+	}, [])
 
-    useEffect(() => {
-        getAllNotActivePosts()
-        
+	console.log(validatePosts)
 
-    }, [getAllNotActivePosts])
+	const allNotModeratedPosts = validatePosts.map((e) => {
+		return (
+			<PostInfo
+				key={e._id}
+				id={e._id}
+				name={e.name}
+				sender={e.sender}
+				title={e.title}
+				content={e.content}
+				img={e.image}
+				location={e.location}
+				price={e.price}
+				square={e.square}
+				status={e.status}
+				type={e.type}
+				likes={e.likes}
+				number={e.number}
+				rooms={e.rooms}
+				moderated={e.moderated}
+			/>
+		)
+	})
 
-    console.log(validatePosts);
+	return (
+		<div className='flex flex-col w-10/12 ml-60 -z-10'>
+			{allNotModeratedPosts}
+		</div>
+	)
+}
 
-    const  allNotModeratedPosts = validatePosts.map(e => {
-            return (
-                <PostInfo
-                    key={e._id}
-                    id={e._id}
-                    name={e.name}
-                    sender={e.sender}
-                    title={e.title}
-                    content={e.content}
-                    img={e.image}
-                    location={e.location}
-                    price={e.price}
-                    square={e.square}
-                    status={e.status}
-                    type={e.type}
-                    likes={e.likes}
-                    number={e.number}
-                    rooms={e.rooms}
-                    moderated={e.moderated}
-                />
-            )
-    })
-
-    return (
-        <div className='flex flex-col w-10/12 ml-60 -z-10'>
-            {allNotModeratedPosts}
-        </div>
-    );
-};
-
-export default ValidatePosts;
+export default ValidatePosts

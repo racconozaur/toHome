@@ -21,34 +21,34 @@ const PostsWrapper = (props) => {
 	
 	// const [sorted, setSorted] = useState(false)
 
-	const [postData, setPostData] = useState([])
+	// const [postData, setPostData] = useState([])
 
-	const getAllActivePosts = useCallback(async () => {
-		try {
-			const res = await axios.get(
-				`allactiveposts`,
+	// const getAllActivePosts = useCallback(async () => {
+	// 	try {
+	// 		const res = await axios.get(
+	// 			`allactiveposts`,
 
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
-					},
-				}
-			)
-			setPostData(res.data)
-			return res.data
-		} catch (e) {
-			console.log(e)
-		}
-	}, [])
+	// 			{
+	// 				headers: {
+	// 					Authorization: `Bearer ${localStorage.getItem(
+	// 						'token'
+	// 					)}`,
+	// 				},
+	// 			}
+	// 		)
+	// 		setPostData(res.data)
+	// 		return res.data
+	// 	} catch (e) {
+	// 		console.log(e)
+	// 	}
+	// }, [])
 
-	useEffect(() => {
-		getAllActivePosts()
-        return () => {
-            setPostData([])
-        }
-	}, [getAllActivePosts])
+	// useEffect(() => {
+	// 	getAllActivePosts()
+    //     return () => {
+    //         setPostData([])
+    //     }
+	// }, [getAllActivePosts])
 
 	// const sortedPosts = postData.sort((a, b) => {
 	// 	return +b.rate - +a.rate
@@ -144,13 +144,13 @@ const PostsWrapper = (props) => {
 
 			<Switch>
 				<Route exact path={path}>
-					<DefaultView postData={postData}/>
+					<DefaultView />
 				</Route>
 				<Route path={`${path}/posts`}>
-					<DefaultView postData={postData}/>
+					<DefaultView />
 				</Route>
 				<Route path={`${path}/map`}>
-					<MapView postData={postData}/>
+					<MapView/>
 				</Route>
 			</Switch>
 			{/* <DefaultView/> */}

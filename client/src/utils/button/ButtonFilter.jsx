@@ -2,10 +2,10 @@ import React from 'react';
 
 const ButtonFilter = (props) => {
 
-    let btnClass = `px-6 py-3 mr-4 mb-4 bg-cyellow text-cblue rounded-lg ${props.className} ` 
+    let btnClass = `w-full h-8 mb-4 bg-cyellow text-cblue rounded-lg sm:w-min sm:h-min sm:px-6 sm:py-3 ${props.className} ` 
 
     return (
-        <button className={btnClass} onClick={props.onClick} disabled={props.disabled}>
+        <button className={btnClass } onClick={props.onClick} disabled={props.disabled}>
             {props.children}
         </button>
     );

@@ -3,7 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import axios from '../../handlers/axiosHandler'
-import { deletePost } from '../../actions/user'
+import { deletePost, getOnePost } from '../../actions/user'
 import {
 	AiOutlineHeart,
 	AiFillHeart,
@@ -24,7 +24,7 @@ import MapCard from '../Map/MapCard'
 
 const PostDescription = (props) => {
 	const isAuth = useSelector((state) => state.user.isAuth)
-	const userEmail = useSelector((state) => state.user.currentUser.email)
+	const userEmail = localStorage.getItem('user')
 
 	const { t } = useTranslation()
 	const history = useHistory()
@@ -67,21 +67,21 @@ const PostDescription = (props) => {
 		setType(event.target.value)
 	}
 
-	const getOnePost = useCallback(async () => {
-		try {
-			const res = await axios.get(`getonepost/${postId}`)
-			setOnePost(res.data)
-		} catch (e) {
-			alert(e.response.data.message)
-		}
-	}, [postId])
+	// const getOnePost = useCallback(async () => {
+	// 	try {
+	// 		const res = await axios.get(`getonepost/${postId}`)
+	// 		setOnePost(res.data)
+	// 	} catch (e) {
+	// 		alert(e.response.data.message)
+	// 	}
+	// }, [postId])
 
 	useEffect(() => {
-		getOnePost()
+		getOnePost(postId).then(res => setOnePost(res))
 		return () => {
 			setOnePost([])
 		}
-	}, [getOnePost])
+	}, [postId])
 
 	const editHandler = () => {
 		setEdit(!edit)
@@ -134,11 +134,11 @@ const PostDescription = (props) => {
 	return (
 		<div className=' container mx-auto'>
 			<div className='w-full  mx-0 text-cblue lg:mx-auto lg:w-7/12  my-4'>
-				<div className='p-4 bg-white border-2 border-black rounded-lg'>
+				<div className='p-4 bg-white border-2 border-black rounded-lg dark:border-white dark:bg-slate-800'>
 					<img src={onePost.image} alt={onePost.img} />
 				</div>
 
-				<div className=' p-4 my-8 bg-white border-2 border-black rounded-lg'>
+				<div className=' p-4 my-8 bg-white border-2 border-black rounded-lg dark:border-white dark:bg-slate-800 dark:text-slate-50'>
 					<p className=' font-bold text-2xl my-4'>
 						{t('Title')}:{' '}
 						{edit === false ? (
@@ -299,7 +299,7 @@ const PostDescription = (props) => {
 					{/* <p>{t('Likes')}: {` ${onePost.likes.slice(0, 4)} ${onePost.likes.length > 5 ? `and ${onePost.likes.length - 5}` : ''}`}</p> */}
 				</div>
 
-				<div className=' p-4 my-4 bg-white border-2 border-blac rounded-lg text-lg'>
+				<div className=' p-4 my-4 bg-white border-2 border-blac rounded-lg text-lg dark:border-white dark:bg-slate-800 dark:text-slate-50'>
 					<p className='font-bold mb-4'>{t('Contact Details')}: </p>
 					<p>{t('Name')}: {onePost.name}</p>
 					<p>Email: {onePost.sender}</p>

@@ -3,6 +3,7 @@ import axios from '../../handlers/axiosHandler'
 import Post from './Post'
 import { AiOutlineUser, AiOutlineFilePpt } from "react-icons/ai";
 import { useTranslation } from 'react-i18next'
+import { getActivePostsFrom, getRewiewPostsFrom } from '../../actions/user';
 
 const UserPosts = (props) => {
 	const [posts, setPosts] = useState([])
@@ -10,25 +11,27 @@ const UserPosts = (props) => {
 
 	const { t } = useTranslation()
 
-	const getActivePostsFrom = useCallback(async (sender) => {
-		try {
-			const res = await axios.get(`getactivepostsfrom/${sender}`)
-            setPosts([])
-            setPosts(res.data)
-		} catch (e) {
-			alert(e.response.data.message)
-		}
-	}, [])
+	const email = localStorage.getItem('user')
 
-    const getRewiewPostsFrom = useCallback(async (sender) => {
-		try {
-			const res = await axios.get(`getreviewpostsfrom/${sender}`)
-            setPosts([])
-			setPosts(res.data)
-		} catch (e) {
-			alert(e.response.data.message)
-		}
-	}, [])
+	// const getActivePostsFrom = useCallback(async (sender) => {
+	// 	try {
+	// 		const res = await axios.get(`getactivepostsfrom/${sender}`)
+    //         setPosts([])
+    //         setPosts(res.data)
+	// 	} catch (e) {
+	// 		alert(e.response.data.message)
+	// 	}
+	// }, [])
+
+    // const getRewiewPostsFrom = useCallback(async (sender) => {
+	// 	try {
+	// 		const res = await axios.get(`getreviewpostsfrom/${sender}`)
+    //         setPosts([])
+	// 		setPosts(res.data)
+	// 	} catch (e) {
+	// 		alert(e.response.data.message)
+	// 	}
+	// }, [])
 
     const handleActive = (e) => {
         e.preventDefault()
@@ -41,13 +44,16 @@ const UserPosts = (props) => {
 
 	useEffect(() => {
         if(postsState){
-            getActivePostsFrom(props.email)
+			getActivePostsFrom(email).then(setPosts([])).then(res => setPosts(res))
         }
         else{
-            getRewiewPostsFrom(props.email)
+            getRewiewPostsFrom(email).then(setPosts([])).then(res => setPosts(res))
         }
+		return () => {
+			setPosts([])
+		}
 		
-	}, [getActivePostsFrom, getRewiewPostsFrom, postsState, props.email])
+	}, [postsState, email])
 
 	const data = posts.map((e) => {
 		return (

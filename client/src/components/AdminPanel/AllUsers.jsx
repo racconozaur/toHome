@@ -1,33 +1,34 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import axios from '../../handlers/axiosHandler'
 import Card from './Card'
+import { getAllUserInfo } from '../../actions/user'
 
 const AllUsers = () => {
 	const [allUsersData, setAllUsersData] = useState([])
 
-	const getAllUserInfo = useCallback(async () => {
-		try {
-			const res = await axios.get(
-				`allusers`,
+	// const getAllUserInfo = useCallback(async () => {
+	// 	try {
+	// 		const res = await axios.get(
+	// 			`allusers`,
 
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem(
-							'token'
-						)}`,
-					},
-				}
-			)
-			setAllUsersData(res.data)
-			return res.data
-		} catch (e) {
-			console.log(e)
-		}
-	}, [])
+	// 			{
+	// 				headers: {
+	// 					Authorization: `Bearer ${localStorage.getItem(
+	// 						'token'
+	// 					)}`,
+	// 				},
+	// 			}
+	// 		)
+	// 		setAllUsersData(res.data)
+	// 		return res.data
+	// 	} catch (e) {
+	// 		console.log(e)
+	// 	}
+	// }, [])
 
 	useEffect(() => {
-		getAllUserInfo()
-	}, [getAllUserInfo])
+		getAllUserInfo().then(res => setAllUsersData(res))
+	}, [])
 
 	const userList = allUsersData.map((user) => (
 		<Card

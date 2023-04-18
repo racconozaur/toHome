@@ -4,11 +4,18 @@ import ButtonFilter from '../../utils/button/ButtonFilter'
 import PostsList from './PostsList'
 import { useTranslation } from 'react-i18next'
 import { getAllActivePosts } from '../../actions/user'
+import { AiOutlineDown } from "react-icons/ai";
 
 const DefaultView = () => {
 	const { t } = useTranslation()
 
 	const [postData, setPostData] = useState([])
+	const [showFilter, setShowFilter] = useState(true)
+
+	const changeShowFilter = () =>{
+		setShowFilter(prev => !prev)
+		console.log(showFilter);
+	}
 
 	useEffect(() => {
 		getAllActivePosts().then((res) => setPostData(res))
@@ -23,14 +30,16 @@ const DefaultView = () => {
 				<h2 className=' text-black text-2xl font-medium ml-10 dark:text-slate-50'>
 					{t('Results')}
 				</h2>
+				
 				<PostsList postData={postData} />
 			</div>
 
-			<div className=' w-full h-max mt-16 border-black text-cblue border-2 rounded-2xl drop-shadow md:w-[29%] dark:border-white dark:text-slate-50'>
-				<div className=' border-b-2 border-black px-8 py-4 text-2xl font-semibold dark:border-white'>
+			<div className=' w-full h-max mt-0 border-black text-cblue border-2 rounded-2xl drop-shadow md:w-[29%] md:mt-16 dark:border-white dark:text-slate-50'>
+				<div className={` flex justify-between border-b-2 ${showFilter && 'border-none'} border-black px-8 py-4 text-2xl font-semibold dark:border-white`}>
 					{t('Filter')}
+					<AiOutlineDown className={` block md:hidden hover:cursor-pointer rotate-180 ${showFilter && 'rotate-0'}`}  onClick={changeShowFilter}/>
 				</div>
-				<div className='px-8'>
+				<div className={`px-8 transition-all ${showFilter && ' hidden'}`}>
 					<h3 className='mt-5 mb-4 font-semibold text-lg'>
 						{t('Type')}
 					</h3>

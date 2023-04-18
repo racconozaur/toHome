@@ -35,11 +35,11 @@ const Post = (props) => {
 
     return (
         <div className=' lg:flex rounded-lg w-full mx-0 lg:mx-auto border-2 border-black drop-shadow-xl p-8 my-8 bg-white dark:bg-slate-800 dark:border-white ' id='report'>
-            <div className=' w-[40%] h-full'>
+            <div className=' w-full h-full lg:w-[40%]'>
                  <img src={props.img} alt={props.img}/>
             </div>
 
-            <div className=' w-[60%] pl-8 text-cblue flex flex-col justify-between '>
+            <div className=' w-full lg:w-[60%] md:pl-8 text-cblue flex flex-col justify-between '>
                 <div className='dark:text-slate-50'>
                     <div className='flex items-center justify-between'>
                         <h2 className=' text-2xl font-semibold my-6'>{t('Price')}: USD ${props.price}</h2>

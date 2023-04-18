@@ -3,7 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import axios from '../../handlers/axiosHandler'
-import { deletePost, getOnePost } from '../../actions/user'
+import { deletePost, getOnePost, likePost } from '../../actions/user'
 import {
 	AiOutlineHeart,
 	AiFillHeart,
@@ -21,6 +21,7 @@ import { updatePost } from '../../actions/user'
 import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import MapCard from '../Map/MapCard'
+import JsPDF from 'jspdf'
 
 const PostDescription = (props) => {
 	const isAuth = useSelector((state) => state.user.isAuth)
@@ -29,7 +30,7 @@ const PostDescription = (props) => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const locationStste = useLocation()
-	const { postId, location } = locationStste.state
+	const { postId, location, likes } = locationStste.state
 
 	const [onePost, setOnePost] = useState({})
 
@@ -40,6 +41,8 @@ const PostDescription = (props) => {
 	const [newSquare, setNewSquare] = useState(0)
 	const [newLocation, setNewLocation] = useState('')
 	const [newDescription, setNewDescription] = useState('')
+
+	const [liked, setLiked] = useState(likes.includes(userEmail))
 
 	// status
 	const optionsStatus = [
@@ -77,11 +80,11 @@ const PostDescription = (props) => {
 	// }, [postId])
 
 	useEffect(() => {
-		getOnePost(postId).then(res => setOnePost(res))
+		getOnePost(postId).then((res) => setOnePost(res))
 		return () => {
 			setOnePost([])
 		}
-	}, [postId])
+	}, [postId, liked])
 
 	const editHandler = () => {
 		setEdit(!edit)
@@ -131,11 +134,38 @@ const PostDescription = (props) => {
 		}, 500)
 	}
 
+	const likeHandler = () => {
+		likePost(postId, userEmail)
+		setLiked(!liked)
+	}
+
+	const generatePDF = async () => {
+		const pdf = new JsPDF('portrait', 'pt', 'a4')
+		let img = new Image()
+		img.src = `${onePost.image}`
+		img.onload = () => {
+			pdf.text(`Author: ${onePost.sender}`, 10, 20)
+			pdf.text(`Name: ${onePost.name}`, 10, 40)
+			pdf.text(`Number: ${onePost.number}`, 10, 60)
+			pdf.text(`Title: ${onePost.title}`, 10, 80)
+			pdf.text(`Status: ${onePost.status}`, 10, 100)
+			pdf.text(`Type: ${onePost.type}`, 10, 120)
+			pdf.text(`Rooms: ${onePost.rooms}`, 10, 140)
+			pdf.text(`Square: ${onePost.square}`, 10, 160)
+			pdf.text(`Location: ${onePost.location}`, 10, 180)
+			pdf.text(`Price: ${onePost.price}`, 10, 200)
+			pdf.text(`Description: ${props.content}`, 10, 220)
+			pdf.addImage(img, 'png', 10, 260, 0, 400)
+
+			pdf.save(`${onePost.title}.pdf`)
+		}
+	}
+
 	return (
 		<div className=' container mx-auto'>
 			<div className='w-full  mx-0 text-cblue lg:mx-auto lg:w-7/12  my-4'>
 				<div className='p-4 bg-white border-2 border-black rounded-lg dark:border-white dark:bg-slate-800'>
-					<img src={onePost.image} alt={onePost.img} />
+					<img src={onePost.image} alt={onePost.image} />
 				</div>
 
 				<div className=' p-4 my-8 bg-white border-2 border-black rounded-lg dark:border-white dark:bg-slate-800 dark:text-slate-50'>
@@ -291,52 +321,77 @@ const PostDescription = (props) => {
 					<div>
 						{t('Location')}:Latitude: {location.latitude.toFixed(4)}{' '}
 						| Longitude: {location.longitude.toFixed(4)}
-						
-
-						<MapCard location={location}/>
+						<MapCard location={location} />
 					</div>
-
-					{/* <p>{t('Likes')}: {` ${onePost.likes.slice(0, 4)} ${onePost.likes.length > 5 ? `and ${onePost.likes.length - 5}` : ''}`}</p> */}
 				</div>
 
 				<div className=' p-4 my-4 bg-white border-2 border-blac rounded-lg text-lg dark:border-white dark:bg-slate-800 dark:text-slate-50'>
 					<p className='font-bold mb-4'>{t('Contact Details')}: </p>
-					<p>{t('Name')}: {onePost.name}</p>
+					<p>
+						{t('Name')}: {onePost.name}
+					</p>
 					<p>Email: {onePost.sender}</p>
-					<p>{t('Number')}: {onePost.number}</p>
+					<p>
+						{t('Number')}: {onePost.number}
+					</p>
+					<p>
+						{t('Likes')}:{onePost.likes}
+					</p>
 				</div>
 
-				{userEmail === onePost.sender ? (
-					<div className='flex'>
-						{edit === true ? (
+				<div className='flex'>
+					{isAuth && (
+						<>
+							<div
+								onClick={likeHandler}
+								className='m-1 p-4 bg-slate-100 w-min rounded-lg text-red-500 hover:bg-slate-200 hover:cursor-pointer'
+							>
+								{liked ? <AiFillHeart /> : <AiOutlineHeart />}
+							</div>
+
+							
+						</>
+					)}
+					{userEmail === onePost.sender && (
+						<>
+							{edit === true ? (
+								<div
+									className={
+										' m-1 p-4 w-min rounded-lg bg-green-300 hover:bg-green-400 hover:cursor-pointer'
+									}
+									onClick={saveHandler}
+								>
+									<AiOutlineCheck />
+								</div>
+							) : (
+								<div
+									className={
+										' m-1 p-4 w-min rounded-lg bg-amber-100 hover:bg-amber-200 hover:cursor-pointer'
+									}
+									onClick={editHandler}
+								>
+									<AiOutlineEdit />
+								</div>
+							)}
 							<div
 								className={
-									' m-1 p-4 w-min rounded-lg bg-green-300 hover:bg-green-400 hover:cursor-pointer'
+									' m-1 p-4 w-min rounded-lg bg-red-300 hover:bg-red-400 hover:cursor-pointer'
 								}
-								onClick={saveHandler}
+								onClick={deleteHandler}
 							>
-								<AiOutlineCheck />
+								<AiOutlineDelete />
 							</div>
-						) : (
-							<div
+						</>
+					)}
+					<div
 								className={
-									' m-1 p-4 w-min rounded-lg bg-amber-100 hover:bg-amber-200 hover:cursor-pointer'
+									' m-1 p-4 w-min rounded-lg bg-orange-300 hover:bg-orange-400 hover:cursor-pointer'
 								}
-								onClick={editHandler}
+								onClick={generatePDF}
 							>
-								<AiOutlineEdit />
+								<AiOutlineFilePdf />
 							</div>
-						)}
-						<div
-							className={
-								' m-1 p-4 w-min rounded-lg bg-red-300 hover:bg-red-400 hover:cursor-pointer'
-							}
-							onClick={deleteHandler}
-						>
-							<AiOutlineDelete />
-						</div>
-					</div>
-				) : null}
+				</div>
 			</div>
 
 			<Comments postId={postId} isAuth={isAuth} userEmail={userEmail} />

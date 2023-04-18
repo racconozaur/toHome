@@ -10,7 +10,7 @@ const DefaultView = () => {
 	const { t } = useTranslation()
 
 	const [postData, setPostData] = useState([])
-	const [showFilter, setShowFilter] = useState(true)
+	const [showFilter, setShowFilter] = useState(false)
 
 	const changeShowFilter = () =>{
 		setShowFilter(prev => !prev)

@@ -58,7 +58,8 @@ const Post = (props) => {
                             pathname: '/postinfo',
                             state: {
                                 postId: props.id,
-                                location: props.location
+                                location: props.location,
+                                likes: props.likes
                             }
                         }}
                     >

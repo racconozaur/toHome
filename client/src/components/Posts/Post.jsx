@@ -59,7 +59,6 @@ const Post = (props) => {
                             state: {
                                 postId: props.id,
                                 location: props.location,
-                                likes: props.likes
                             }
                         }}
                     >

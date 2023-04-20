@@ -1,24 +1,18 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import axios from '../../handlers/axiosHandler'
-import { deletePost, getOnePost, likePost } from '../../actions/user'
+import { deletePost, getLocatoinPlace, getOnePost } from '../../actions/user'
 import {
-	AiOutlineHeart,
-	AiFillHeart,
-	AiOutlineComment,
 	AiOutlineEdit,
 	AiOutlineCheck,
 	AiOutlineDelete,
 	AiOutlineFilePdf,
-	AiTwotoneStar,
 } from 'react-icons/ai'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Comments from './Comments/Comments'
 import { updatePost } from '../../actions/user'
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import MapCard from '../Map/MapCard'
 import JsPDF from 'jspdf'
@@ -30,7 +24,7 @@ const PostDescription = (props) => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const locationStste = useLocation()
-	const { postId, location, likes } = locationStste.state
+	const { postId, location } = locationStste.state
 
 	const [onePost, setOnePost] = useState({})
 
@@ -42,7 +36,7 @@ const PostDescription = (props) => {
 	const [newLocation, setNewLocation] = useState('')
 	const [newDescription, setNewDescription] = useState('')
 
-	const [liked, setLiked] = useState(likes.includes(userEmail))
+	const [place, setPlace] = useState('')
 
 	// status
 	const optionsStatus = [
@@ -70,28 +64,27 @@ const PostDescription = (props) => {
 		setType(event.target.value)
 	}
 
-	// const getOnePost = useCallback(async () => {
-	// 	try {
-	// 		const res = await axios.get(`getonepost/${postId}`)
-	// 		setOnePost(res.data)
-	// 	} catch (e) {
-	// 		alert(e.response.data.message)
-	// 	}
-	// }, [postId])
-
 	useEffect(() => {
 		getOnePost(postId).then((res) => setOnePost(res))
+		getLocatoinPlace(
+			location.longitude.toFixed(4),
+			location.latitude.toFixed(4),
+			process.env.REACT_APP_MAPBOX_TOKEN
+		).then((res) => setPlace(res))
 		return () => {
 			setOnePost([])
 		}
-	}, [postId, liked])
+	}, [location.latitude, location.longitude, postId])
+
+	const directplace = place.features
+
+	console.log(directplace)
 
 	const editHandler = () => {
 		setEdit(!edit)
 	}
 
 	const saveHandler = async () => {
-		// setEdit(!edit)
 		if (
 			newTitle.trim() === '' ||
 			newPrice.trim() === null ||
@@ -132,11 +125,6 @@ const PostDescription = (props) => {
 		setTimeout(() => {
 			history.push('/all')
 		}, 500)
-	}
-
-	const likeHandler = () => {
-		likePost(postId, userEmail)
-		setLiked(!liked)
 	}
 
 	const generatePDF = async () => {
@@ -320,7 +308,7 @@ const PostDescription = (props) => {
 
 					<div>
 						{t('Location')}:Latitude: {location.latitude.toFixed(4)}{' '}
-						| Longitude: {location.longitude.toFixed(4)}
+						| Longitude: {location.longitude.toFixed(4)} | Place: {}
 						<MapCard location={location} />
 					</div>
 				</div>
@@ -334,24 +322,9 @@ const PostDescription = (props) => {
 					<p>
 						{t('Number')}: {onePost.number}
 					</p>
-					<p>
-						{t('Likes')}:{onePost.likes}
-					</p>
 				</div>
 
 				<div className='flex'>
-					{isAuth && (
-						<>
-							<div
-								onClick={likeHandler}
-								className='m-1 p-4 bg-slate-100 w-min rounded-lg text-red-500 hover:bg-slate-200 hover:cursor-pointer'
-							>
-								{liked ? <AiFillHeart /> : <AiOutlineHeart />}
-							</div>
-
-							
-						</>
-					)}
 					{userEmail === onePost.sender && (
 						<>
 							{edit === true ? (
@@ -384,13 +357,13 @@ const PostDescription = (props) => {
 						</>
 					)}
 					<div
-								className={
-									' m-1 p-4 w-min rounded-lg bg-orange-300 hover:bg-orange-400 hover:cursor-pointer'
-								}
-								onClick={generatePDF}
-							>
-								<AiOutlineFilePdf />
-							</div>
+						className={
+							' m-1 p-4 w-min rounded-lg bg-orange-300 hover:bg-orange-400 hover:cursor-pointer'
+						}
+						onClick={generatePDF}
+					>
+						<AiOutlineFilePdf />
+					</div>
 				</div>
 			</div>
 

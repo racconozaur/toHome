@@ -50,7 +50,7 @@ function App() {
 				handleLenguageChange={handleLenguageChange}
 				language={language}
 			/>
-			<main className='px-4 mt-[70px] lg:px-0 '>
+			<main className='px-4 mt-[70px] lg:px-0 h-full'>
 				{!isAuth && (
 					<Switch>
 						<Route path='/' exact>

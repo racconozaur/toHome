@@ -76,7 +76,7 @@ const User = (props) => {
 
 	return (
 		<>
-			<div className=' bg-white w-full container mx-auto py-9 h-full dark:bg-slate-800'>
+			<div className=' bg-white w-full h-full min-h-full container mx-auto py-9 dark:bg-slate-800'>
 				<div className=' w-10/12 h-80 border-2 rounded-xl border-cblue mx-auto px-36 py-8 flex justify-between text-cblue dark:border-white dark:text-slate-50'>
 					<div>
 						<div className='flex items-center'>

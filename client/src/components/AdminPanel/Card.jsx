@@ -1,24 +1,29 @@
 import React from 'react'
-import { useState } from 'react'
 import Button from '../../utils/button/Button'
 import { deleteuser, updateRole, updateStatus } from '../../actions/user'
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Link, useRouteMatch } from 'react-router-dom'
 
 const Card = (props) => {
-	const { path, url } = useRouteMatch()
+	const { url } = useRouteMatch()
 
 	const blockHandler = () => {
 		updateStatus(props.id)
+		setTimeout(() => {
+			window.location.reload()
+		}, 500)
 	}
 
 	const roleHandler = () => {
 		updateRole(props.id)
+		setTimeout(() => {
+			window.location.reload()
+		}, 500)
 	}
 
 	const deleteHandler = async () => {
 		deleteuser(props.id)
 
-		const reloadTimeout = setTimeout(() => {
+		setTimeout(() => {
 			window.location.reload()
 		}, 500)
 	}
@@ -83,7 +88,7 @@ const Card = (props) => {
 				</td>
 			</tr>
 
-            {/* <Switch>
+			{/* <Switch>
                 <Route path={`${path}/:topicId`}>
                     <
                 </Route>

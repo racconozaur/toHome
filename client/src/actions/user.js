@@ -126,7 +126,6 @@ export const updatePost = async (
 	type,
 	rooms,
 	square,
-
 	price,
 	content
 ) => {
@@ -137,7 +136,6 @@ export const updatePost = async (
 			type,
 			rooms,
 			square,
-
 			price,
 			content,
 		})
@@ -233,8 +231,16 @@ export const getOnePost = async (postId) => {
 export const getAllNotActivePosts = async () => {
 	try {
 		const res = await axios.get(`allnotactiveposts`,
+	)
+		return res.data
+	} catch (e) {
+		console.log(e);
+	}
+}
 
-				{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
+export const getAllPosts = async () => {
+	try {
+		const res = await axios.get(`/allposts`,
 	)
 		return res.data
 	} catch (e) {
@@ -260,6 +266,17 @@ export const sendComment = async (postId, comment, author) => {
 export const getCommentsFrom = async (postId) => {
 	try {
 		const res = await axios.get(`getcommentsfrom/${postId}`)
+		return res.data
+	} catch (e) {
+		alert(e.response.data.message)
+	}
+}
+
+// location 
+
+export const getLocatoinPlace = async (longitude, latitude, key) => {
+	try {
+		const res = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${key}`)
 		return res.data
 	} catch (e) {
 		alert(e.response.data.message)

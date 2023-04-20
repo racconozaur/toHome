@@ -22,12 +22,12 @@ const PostInfo = (props) => {
 
 	const acceptHandler = () => {
 		// socket.emit('send_message', { message, room })
-		acceptPostFrom(props.id).finally(window.location.reload())
+		acceptPostFrom(props.id)
 	}
 
 	const denyHandler = () => {
 		// socket.emit('send_message', { message, room })
-		denyPostFrom(props.id).finally(window.location.reload())
+		denyPostFrom(props.id)
 	}
 
 	// useEffect(() => {
@@ -49,8 +49,8 @@ const PostInfo = (props) => {
 
     // console.log(isConnected, socket.id)
 	return (
-		<div className='flex flex-col w-8/12 ml-60'>
-			<div className=' bg-white border-2 border-black rounded-lg'>
+		<div className='flex flex-col w-8/12 ml-60 mb-4'>
+			<div className=' bg-white border-2 border-black rounded-lg dark:border-white dark:bg-slate-800 dark:text-slate-50'>
 				<div className='p-4 '>
 					<img src={props.img} alt={props.img} />
 
@@ -82,7 +82,7 @@ const PostInfo = (props) => {
 					<p>Phone Number: {props.number}</p>
 				</div>
 
-				<div className=' border-t-2 border-black p-4'>
+				<div className=' border-t-2 border-black p-4 dark:border-white'>
 					<Button
 						className=' bg-green-400 w-20 h-12'
 						onClick={acceptHandler}

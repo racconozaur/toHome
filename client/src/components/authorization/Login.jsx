@@ -24,7 +24,7 @@ const Login = () => {
             localStorage.setItem("user", email);
 
             setTimeout(() => {
-                history.push("/all");
+                history.push("/all/posts");
             }, 500)
         }
         

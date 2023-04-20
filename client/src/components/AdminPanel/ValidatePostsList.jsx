@@ -1,29 +1,16 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import axios from '../../handlers/axiosHandler'
+import React, { useEffect, useState } from 'react'
 import PostInfo from './PostInfo'
 import { getAllNotActivePosts } from '../../actions/user'
 
 const ValidatePosts = () => {
 	const [validatePosts, setValidatedPosts] = useState([])
 
-	// const getAllNotActivePosts = useCallback(async () => {
-	//     try {
-	//         const res = await axios.get(`allnotactiveposts`,
-
-	//                 {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}}
-	//     )
-	//         setValidatedPosts(res.data)
-	//         return res.data
-	//     } catch (e) {
-	//         console.log(e);
-	//     }
-	// }, [])
-
 	useEffect(() => {
 		getAllNotActivePosts().then((res) => setValidatedPosts(res))
+		return(() => {
+			setValidatedPosts([])
+		})
 	}, [])
-
-	console.log(validatePosts)
 
 	const allNotModeratedPosts = validatePosts.map((e) => {
 		return (
@@ -48,9 +35,10 @@ const ValidatePosts = () => {
 		)
 	})
 
+
 	return (
 		<div className='flex flex-col w-10/12 ml-60 -z-10'>
-			{allNotModeratedPosts}
+			{validatePosts.length === 0 ? <div className=' flex justify-center mt-10'>No unmoderated posts yet</div> : allNotModeratedPosts }
 		</div>
 	)
 }

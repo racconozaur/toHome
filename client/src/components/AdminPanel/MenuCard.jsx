@@ -3,6 +3,7 @@ import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom'
 import AllUsers from './AllUsers'
 import ValidatePosts from './ValidatePostsList'
 import { AiOutlineUser, AiOutlineFilePpt } from "react-icons/ai";
+import AllPosts from './AllPosts';
 
 const MenuCard = (props) => {
 	let { path, url } = useRouteMatch()
@@ -23,12 +24,19 @@ const MenuCard = (props) => {
 					<NavLink 
 						className='z-20 flex items-center' 
 						activeClassName='text-white' 
-						to={`${url}/allPosts`}
+						to={`${url}/allUnmoderatedPosts`}
 					>
 						<AiOutlineFilePpt className='mr-1'/>
 						Moderate Posts
 					</NavLink>
-					<div>3</div>
+					<NavLink 
+						className='z-20 flex items-center' 
+						activeClassName='text-white' 
+						to={`${url}/allActivePosts`}
+					>
+						<AiOutlineFilePpt className='mr-1'/>
+						Active Posts
+					</NavLink>
 					<div>4</div>
 				</div>
 			</div>
@@ -38,8 +46,11 @@ const MenuCard = (props) => {
 				<Route path={`${path}/allUsers`}>
 					<AllUsers />
 				</Route>
-				<Route path={`${path}/allPosts`}>
+				<Route path={`${path}/allUnmoderatedPosts`}>
 					<ValidatePosts />
+				</Route>
+				<Route path={`${path}/allActivePosts`}>
+					<AllPosts/>
 				</Route>
 			</Switch>
 		</>

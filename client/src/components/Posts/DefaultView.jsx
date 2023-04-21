@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { getAllActivePosts } from '../../actions/user'
 import { AiOutlineDown } from "react-icons/ai";
 
-const DefaultView = () => {
+const DefaultView = (props) => {
 	const { t } = useTranslation()
 
 	const [postData, setPostData] = useState([])
@@ -31,7 +31,7 @@ const DefaultView = () => {
 					{t('Results')}
 				</h2>
 				
-				<PostsList postData={postData} />
+				<PostsList postData={postData} value={props.value}/>
 			</div>
 
 			<div className=' w-full h-max mt-0 border-black text-cblue border-2 rounded-2xl drop-shadow md:w-[29%] md:mt-16 dark:border-white dark:text-slate-50'>

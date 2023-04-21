@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import Post from './Post'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import axios from '../../handlers/axiosHandler'
 import {
 	HiOutlineSearch,
 	HiOutlineLocationMarker,
 	HiOutlineMenuAlt1,
 } from 'react-icons/hi'
 import Input from '../../utils/input/Input'
-import ButtonFilter from '../../utils/button/ButtonFilter'
-import PostsList from './PostsList'
 import DefaultView from './DefaultView'
 import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom'
 import MapView from './MapView'
@@ -18,37 +14,8 @@ const PostsWrapper = (props) => {
 	const { t } = useTranslation()
 
 	const [value, setValue] = useState('')
-	
+
 	// const [sorted, setSorted] = useState(false)
-
-	// const [postData, setPostData] = useState([])
-
-	// const getAllActivePosts = useCallback(async () => {
-	// 	try {
-	// 		const res = await axios.get(
-	// 			`allactiveposts`,
-
-	// 			{
-	// 				headers: {
-	// 					Authorization: `Bearer ${localStorage.getItem(
-	// 						'token'
-	// 					)}`,
-	// 				},
-	// 			}
-	// 		)
-	// 		setPostData(res.data)
-	// 		return res.data
-	// 	} catch (e) {
-	// 		console.log(e)
-	// 	}
-	// }, [])
-
-	// useEffect(() => {
-	// 	getAllActivePosts()
-    //     return () => {
-    //         setPostData([])
-    //     }
-	// }, [getAllActivePosts])
 
 	// const sortedPosts = postData.sort((a, b) => {
 	// 	return +b.rate - +a.rate
@@ -99,10 +66,7 @@ const PostsWrapper = (props) => {
 	// 	/>
 	// ))
 
-
-
-
-	let {path, url} = useRouteMatch()
+	let { path, url } = useRouteMatch()
 
 	return (
 		<div className=' bg-white w-full h-full min-h-full container mx-auto relative dark:bg-slate-800'>
@@ -123,15 +87,15 @@ const PostsWrapper = (props) => {
 				</div>
 
 				<div className=' w-56 h-12 border-2 border-cblue rounded-2xl hidden text-xl lg:flex lg:justify-around lg:items-center dark:border-white'>
-					<NavLink 
+					<NavLink
 						className='flex items-center  justify-center w-2/4 h-full border-r-2 border-cblue hover:cursor-pointer  rounded-l-2xl dark:border-white'
 						activeClassName='bg-cyellow'
-						to={`${url}/posts`}	
+						to={`${url}/posts`}
 					>
 						<HiOutlineMenuAlt1 />
 						{t('List')}
 					</NavLink>
-					<NavLink 
+					<NavLink
 						className='flex items-center justify-center w-2/4 h-full border-l-2 border-cblue hover:cursor-pointer rounded-r-2xl dark:border-white'
 						activeClassName='bg-cyellow'
 						to={`${url}/map`}
@@ -144,18 +108,17 @@ const PostsWrapper = (props) => {
 
 			<Switch>
 				<Route exact path={path}>
-					<DefaultView />
+					<DefaultView value={value} />
 				</Route>
 				<Route path={`${path}/posts`}>
-					<DefaultView />
+					<DefaultView value={value} />
 				</Route>
 				<Route path={`${path}/map`}>
-					<MapView/>
+					<MapView value={value} />
 				</Route>
 			</Switch>
 			{/* <DefaultView/> */}
-
-		</div>	
+		</div>
 	)
 }
 

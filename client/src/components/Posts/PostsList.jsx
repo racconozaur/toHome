@@ -2,7 +2,12 @@ import React from 'react'
 import Post from './Post'
 
 const PostsList = (props) => {
-	const allPosts = props.postData.map((e) => {
+
+	const filteredPosts = props.postData.filter((post) => {
+		return post.title.toLowerCase().includes(props.value.toLowerCase())
+	})
+
+	const allPosts = filteredPosts.map((e) => {
 		return (
 			<Post
 				key={e._id}
@@ -24,7 +29,7 @@ const PostsList = (props) => {
 		)
 	})
 
-	return <>{allPosts.reverse()}</>
+	return <>{allPosts.length === 0 ? <div className=' flex justify-center'>No Posts Found</div> : allPosts.reverse()}</>
 }
 
 export default PostsList

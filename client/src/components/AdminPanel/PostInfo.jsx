@@ -55,31 +55,31 @@ const PostInfo = (props) => {
 					<img src={props.img} alt={props.img} />
 
 					<p className=' font-bold text-2xl my-4'>
-						Title: {props.title}
+						{t('Title')}: {props.title}
 					</p>
 					<p className=' font-semibold text-2xl'>
-						Price: USD ${props.price}
+						{t('Price')}: USD ${props.price}
 					</p>
 					<p className=' text-xl my-4'>Type: {props.type}</p>
-					<p>Status: {props.status}</p>
-					<p>Number of rooms: {props.rooms}</p>
+					<p>{t('Status')}: {props.status}</p>
+					<p>{t('Number of rooms')}: {props.rooms}</p>
 					<p>
-						Square: {props.square} m<sup>2</sup>
+						{t('Square')}: {props.square} m<sup>2</sup>
 					</p>
-					<p>Location: Longitude: {props.location.longitude.toFixed(4)} | Latitude:
+					<p>{t('Location')}: Longitude: {props.location.longitude.toFixed(4)} | Latitude:
 					{props.location.latitude.toFixed(4)}</p>
-					<p>Description: {props.content}</p>
+					<p>{t('Description')}: {props.content}</p>
 
 					<div>
-						{t('Location')}:Latitude: {props.location.latitude.toFixed(4)}{' '}
+						{t('Location')}: Latitude: {props.location.latitude.toFixed(4)}{' '}
 						| Longitude: {props.location.longitude.toFixed(4)}
 						<MapCard location={props.location}/>
 					</div>
 
-					<p className='font-bold mb-4'>Contact Details: </p>
-					<p>Name: {props.name}</p>
+					<p className='font-bold mb-4'>{t('Contact Details')}: </p>
+					<p>{t('Status')}: {props.name}</p>
 					<p>Email: {props.sender}</p>
-					<p>Phone Number: {props.number}</p>
+					<p>{t('Number')}: {props.number}</p>
 				</div>
 
 				<div className=' border-t-2 border-black p-4 dark:border-white'>

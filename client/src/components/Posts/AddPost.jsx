@@ -52,7 +52,7 @@ const AddPost = (props) => {
 	// status
 	const optionsStatus = [
 		{ value: '', text: '--Choose an option--' },
-		{ value: 'New', text: 'New' },
+		{ value: 'New', text: 'New1' },
 		{ value: 'Development', text: 'Development' },
 		{ value: 'Old', text: 'Old' },
 		{ value: 'Commerical', text: 'Commerical' },
@@ -151,17 +151,17 @@ const AddPost = (props) => {
 	return (
 		<>
 			<div className=' bg-white my-4 flex p-10 flex-col w-full mx-0 lg:mx-auto lg:w-3/6 border-4 dark:bg-slate-800 rounded-lg drop-shadow-xl'>
-				<p className='mb-2'>Title</p>
+				<p className='mb-2'>{t('Title')}</p>
 
 				<Input
 					className='border-cblue rounded-xl focus:outline-none focus:border-cyellow focus:ring-cyellow'
 					value={title}
 					setValue={setTitle}
 					type={'email'}
-					placeholder={'Title'}
+					placeholder={t('Title')}
 				/>
 
-				<p className='mt-4 mb-2'>Status</p>
+				<p className='mt-4 mb-2'>{t('Status')}</p>
 
 				<select
 					value={status}
@@ -175,7 +175,7 @@ const AddPost = (props) => {
 					))}
 				</select>
 
-				<p className='mt-4 mb-2'>Type</p>
+				<p className='mt-4 mb-2'>{t('Type')}</p>
 				<select
 					value={type}
 					onChange={handleTypeChange}
@@ -200,7 +200,7 @@ const AddPost = (props) => {
 					required
 				/>
 
-				<p className='mt-4 mb-2'>Square</p>
+				<p className='mt-4 mb-2'>{t('Square')}</p>
 				<Input
 					value={square}
 					setValue={setSquare}
@@ -211,7 +211,7 @@ const AddPost = (props) => {
 					required
 				/>
 
-				<p className='mt-4 mb-2'>Price</p>
+				<p className='mt-4 mb-2'>{t('Price')}</p>
 				<Input
 					value={price}
 					setValue={setPrice}
@@ -222,7 +222,7 @@ const AddPost = (props) => {
 					required
 				/>
 
-				<p className='mt-4 mb-2'>Description</p>
+				<p className='mt-4 mb-2'>{t('Description')}</p>
 				<textarea
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
@@ -233,10 +233,11 @@ const AddPost = (props) => {
 				/>
 
 				<p className='mt-4 mb-2'>
-					Location: Longitude: {locationMarker.longitude.toFixed(4)} |
+					{t('Location')}: Longitude: {locationMarker.longitude.toFixed(4)} |
 					Latitude:
 					{locationMarker.latitude.toFixed(4)}
 				</p>
+				<p>{t('LocTxt')}</p>
 				<div className='h-96 relative border shadow-sm border-cblue'>
 					<ReactMapGL
 						{...viewport}
@@ -267,7 +268,7 @@ const AddPost = (props) => {
 					</ReactMapGL>
 				</div>
 
-				<p className='mt-4 mb-2'>Image</p>
+				<p className='mt-4 mb-2'>{t('Image')}</p>
 				{drag ? (
 					<div
 						onDragStart={(e) => dragStartHandler(e)}

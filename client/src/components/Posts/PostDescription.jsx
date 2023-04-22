@@ -149,6 +149,8 @@ const PostDescription = (props) => {
 		}
 	}
 
+	console.log(onePost);
+
 	return (
 		<div className=' container mx-auto'>
 			<div className='w-full  mx-0 text-cblue lg:mx-auto lg:w-7/12  my-4'>
@@ -367,7 +369,7 @@ const PostDescription = (props) => {
 				</div>
 			</div>
 
-			<Comments postId={postId} isAuth={isAuth} userEmail={userEmail} />
+			{onePost.moderated && <Comments postId={postId} isAuth={isAuth} userEmail={userEmail} />}
 		</div>
 	)
 }

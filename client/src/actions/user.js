@@ -282,3 +282,33 @@ export const getLocatoinPlace = async (longitude, latitude, key) => {
 		alert(e.response.data.message)
 	}
 }
+
+
+// ads 
+
+export const sendAds = async (formData) => {
+	try {
+		const response = await axios.post(`postads`, formData)
+		alert(response.data.message)
+	} catch (e) {
+		alert(e.response.data.message)
+	}
+}
+
+export const getAllAds = async () => {
+	try {
+		const res = await axios.get(`/allAds`,
+	)
+		return res.data
+	} catch (e) {
+		console.log(e);
+	}
+}
+
+export const deleteAds = async (id) => {
+	try {
+		await axios.delete(`deleteAds`)
+	} catch (e) {
+		alert(e.response.data.message)
+	}
+}

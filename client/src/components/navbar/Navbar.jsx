@@ -29,7 +29,7 @@ const Navbar = (props) => {
 
     return (
         <header className='bg-cyellow h-[70px] w-full flex items-center z-40 fixed top-0'>
-            <nav className='flex justify-between items-center container mx-auto px-4 lg:px-0'>
+            <nav className='flex flex-col justify-between items-center container mx-auto px-4 lg:px-0 sm:flex-row'>
 
                 <NavLink
                     to='/all/posts'
@@ -37,12 +37,12 @@ const Navbar = (props) => {
                     <img src={logo} alt='logo' />
                 </NavLink>
 
-                <ul className='flex text-[20px]'>
+                <ul className='flex text-[20px] '>
                     <li className=''>
                         {!isAuth && 
                             <NavLink
                                 activeClassName=' text-white'
-                                className=' hover:opacity-75 mr-5 lg:mr-16'
+                                className=' hover:opacity-75 mr-5 sm:mr-16'
                                 to='/login'
                             >
                                 {t('Log-In')}
@@ -53,7 +53,7 @@ const Navbar = (props) => {
                         {!isAuth && 
                             <NavLink
                                 activeClassName=' text-white'
-                                className='hover:opacity-75 mr-16'
+                                className='hover:opacity-75 mr-5 sm:mr-16'
                                 to='/registration'
                             >
                                 {t('Registeration')}
@@ -64,7 +64,7 @@ const Navbar = (props) => {
                         {isAuth && 
                             <NavLink
                                 activeClassName=' text-white'
-                                className=' hover:opacity-75 hover:cursor-pointer mr-16'
+                                className=' hover:opacity-75 hover:cursor-pointer mr-5 sm:mr-16'
                                 to={`/user`}
                             >
                                 {localStorage.getItem('user')}
@@ -73,13 +73,13 @@ const Navbar = (props) => {
                     </li>
                     <li className='nav-item'>
                         {isAuth && <div
-                            className='hover:opacity-75 hover:cursor-pointer mr-16'
+                            className='hover:opacity-75 hover:cursor-pointer mr-5 sm:mr-16'
                             onClick={() => dispatch(logout()) }
                         >
                             {t('Exit')}
                         </div>}
                     </li>
-                    <li className=' mr-7 flex items-center'>
+                    <li className=' mr-5 sm:mr-7 flex items-center'>
                         <BsFillMoonStarsFill className=' cursor-pointer text-xl dark:text-slate-50' onClick={props.onDark}/>
                     </li>
                     {

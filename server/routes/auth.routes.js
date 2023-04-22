@@ -11,7 +11,8 @@ const Comment = require('../models/Comment')
 const multer = require('multer')
 const path = require('path')
 const cloudinary = require('../helpers/uploadImageHelper')
-
+const Ads = require('../models/Ads')
+const { log } = require('console')
 router.post(
 	'/registration',
 	[
@@ -178,7 +179,7 @@ const upload = multer({
 	storage: storage,
 }).single('testImage')
 
-//
+//post
 router.post(
 	'/post',
 
@@ -208,7 +209,7 @@ router.post(
 						price,
 						content,
 					} = req.body
-					
+
 					const result = await cloudinary.uploader.upload(
 						req.file.path,
 						{
@@ -308,8 +309,7 @@ router.delete(`/deletepost/:id`, async (req, res) => {
 router.patch(`/post/:id`, async (req, res) => {
 	try {
 		const post = await Recomendation.findOne({ _id: req.params.id })
-		const { title, status, type, rooms, square, price, content } =
-			req.body
+		const { title, status, type, rooms, square, price, content } = req.body
 
 		post.title = title
 		post.status = status
@@ -486,6 +486,68 @@ router.get(`/getcommentsfrom/:postId`, async (req, res) => {
 	try {
 		const post = await Comment.find({ postId: req.params.postId })
 		return res.json(post)
+	} catch (e) {
+		console.log(e)
+		res.send({ message: 'Server error' })
+	}
+})
+
+// ads
+
+router.post('/postads', async (req, res) => {
+	try {
+		upload(req, res, async (err) => {
+			if (err) {
+				console.log(err)
+				res.send({ message: 'Server error' })
+			} else {
+				const errors = validationResult(req)
+				if (!errors.isEmpty()) {
+					return res
+						.status(400)
+						.json({ message: 'Uncorrect request', errors })
+				}
+
+				const prevAds = await Ads.deleteMany({})
+				
+
+				const { link, description } = req.body
+
+				const result = await cloudinary.uploader.upload(req.file.path, {
+					public_id: `${req.file.filename}__ADS`,
+					crop: 'fill',
+				})
+
+				const ads = new Ads({
+					image: result.url,
+					link,
+					description,
+				})
+				ads.save()
+					.then(() => res.json({ message: 'Message sent' }))
+					.catch((err) => console.log(err))
+			}
+		})
+	} catch (error) {
+		console.log(error)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.get('/allAds', async (req, res) => {
+	try {
+		const ads = await Ads.find({})
+		return res.json(ads)
+	} catch (error) {
+		console.log(error)
+		res.send({ message: 'Server error' })
+	}
+})
+
+router.delete(`/deleteAds`, async (req, res) => {
+	try {
+		await Ads.deleteMany({})
+		return res.status(204).json({})
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })

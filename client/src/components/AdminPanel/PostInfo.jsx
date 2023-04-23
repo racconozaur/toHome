@@ -22,12 +22,12 @@ const PostInfo = (props) => {
 
 	const acceptHandler = () => {
 		// socket.emit('send_message', { message, room })
-		acceptPostFrom(props.id)
+		acceptPostFrom(props.id).then(res => props.handlePostChange(res, props.id))
 	}
 
 	const denyHandler = () => {
 		// socket.emit('send_message', { message, room })
-		denyPostFrom(props.id)
+		denyPostFrom(props.id).then(res => props.handlePostChange(res, props.id))
 	}
 
 	// useEffect(() => {

@@ -39,11 +39,12 @@ const AdsPanel = () => {
 			formData.append('link', link)
 			formData.append('description', description)
 
-			sendAds(formData)
+			sendAds(formData).then(res => setCurrentAds(prev => [...prev, res]))
 
 			setImage()
 			setLink('')
 			setDescription('')
+			// getAllAds().then((res) => setCurrentAds(res))
 		}
 	}
 
@@ -71,9 +72,10 @@ const AdsPanel = () => {
 
 	const deleteAdsHandler = async () => {
 		deleteAds()
-		setTimeout(() => {
-			window.location.reload()
-		}, 500)
+		setCurrentAds([])
+		// setTimeout(() => {
+		// 	window.location.reload()
+		// }, 500)
 	}
 
 	return (

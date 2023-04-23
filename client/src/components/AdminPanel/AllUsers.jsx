@@ -12,6 +12,17 @@ const AllUsers = () => {
 		})
 	}, [])
 
+	const handleUserRoleChange = (data, id) => {
+		const newData = allUsersData.map(prevObj => {
+			if(prevObj._id === id){
+				return data
+			}
+			return prevObj
+		})
+
+		setAllUsersData(newData)
+	}
+
 	const userList = allUsersData.map((user) => (
 		<Card
 			key={user._id}
@@ -20,8 +31,11 @@ const AllUsers = () => {
 			date={user.date}
 			status={user.status}
 			role={user.role}
+			handleUserRoleChange={handleUserRoleChange}
 		/>
 	))
+
+	console.log(userList);
 
 	return (
 		<div className='flex flex-col w-10/12 ml-60 -z-10'>

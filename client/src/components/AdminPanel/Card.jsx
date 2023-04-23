@@ -7,17 +7,13 @@ const Card = (props) => {
 	const { url } = useRouteMatch()
 
 	const blockHandler = () => {
-		updateStatus(props.id)
-		setTimeout(() => {
-			window.location.reload()
-		}, 500)
+		updateStatus(props.id).then(res => props.handleUserRoleChange(res, props.id))
+		
 	}
 
 	const roleHandler = () => {
-		updateRole(props.id)
-		setTimeout(() => {
-			window.location.reload()
-		}, 500)
+		updateRole(props.id).then(res => props.handleUserRoleChange(res, props.id))
+		
 	}
 
 	const deleteHandler = async () => {

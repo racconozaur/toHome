@@ -57,7 +57,9 @@ export const deleteuser = async (id) => {
 
 export const updateStatus = async (id) => {
 	try {
-		await axios.patch(`user/${id}`)
+		const res = await axios.patch(`user/${id}`)
+		const newStatus = await res.data.user
+		return newStatus
 	} catch (e) {
 		alert(e.response.data.message)
 	}
@@ -65,7 +67,9 @@ export const updateStatus = async (id) => {
 
 export const updateRole = async (id) => {
 	try {
-		await axios.patch(`userrole/${id}`)
+		const res = await axios.patch(`userrole/${id}`)
+		const newRole = await res.data.user
+		return newRole
 	} catch (e) {
 		alert(e.response.data.message)
 	}
@@ -166,7 +170,9 @@ export const dislikePost = async (id, username) => {
 
 export const acceptPostFrom = async (id) => {
 	try {
-		await axios.patch(`acceptpostfrom/${id}`)
+		const res = await axios.patch(`acceptpostfrom/${id}`)
+		const newPost = await res.data.post
+		return newPost
 	} catch (e) {
 		alert(e.response.data.message)
 	}
@@ -174,7 +180,9 @@ export const acceptPostFrom = async (id) => {
 
 export const denyPostFrom = async (id) => {
 	try {
-		await axios.patch(`denypostfrom/${id}`)
+		const res = await axios.patch(`denypostfrom/${id}`)
+		const newPost = await res.data.post
+		return newPost
 	} catch (e) {
 		alert(e.response.data.message)
 	}
@@ -289,7 +297,9 @@ export const getLocatoinPlace = async (longitude, latitude, key) => {
 export const sendAds = async (formData) => {
 	try {
 		const response = await axios.post(`postads`, formData)
+		const newAds = await response.data.ads
 		alert(response.data.message)
+		return newAds
 	} catch (e) {
 		alert(e.response.data.message)
 	}

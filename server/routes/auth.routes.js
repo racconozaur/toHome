@@ -135,7 +135,8 @@ router.patch(`/user/:id`, async (req, res) => {
 		const user = await User.findOne({ _id: req.params.id })
 		user.status = user.status == 'active' ? 'blocked' : 'active'
 		user.save()
-		return res.status(204).json({})
+			.then(() => res.json({ message: 'Message sent', user: user }))
+			.catch((err) => console.log(err))
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
@@ -147,7 +148,8 @@ router.patch(`/userrole/:id`, async (req, res) => {
 		const user = await User.findOne({ _id: req.params.id })
 		user.role = user.role == 'user' ? 'admin' : 'user'
 		user.save()
-		return res.status(204).json({})
+			.then(() => res.json({ message: 'Message sent', user: user }))
+			.catch((err) => console.log(err))
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
@@ -415,7 +417,8 @@ router.patch(`/acceptpostfrom/:id`, async (req, res) => {
 		post.moderated = post.moderated == true ? false : true
 		post.validation = 'accepted'
 		post.save()
-		return res.status(204).json({})
+			.then(() => res.json({ message: 'Message sent', post: post }))
+			.catch((err) => console.log(err))
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
@@ -428,7 +431,8 @@ router.patch(`/denypostfrom/:id`, async (req, res) => {
 		post.moderated = false
 		post.validation = 'denied'
 		post.save()
-		return res.status(204).json({})
+			.then(() => res.json({ message: 'Message sent', post: post }))
+			.catch((err) => console.log(err))
 	} catch (e) {
 		console.log(e)
 		res.send({ message: 'Server error' })
@@ -509,7 +513,6 @@ router.post('/postads', async (req, res) => {
 				}
 
 				const prevAds = await Ads.deleteMany({})
-				
 
 				const { link, description } = req.body
 
@@ -524,7 +527,7 @@ router.post('/postads', async (req, res) => {
 					description,
 				})
 				ads.save()
-					.then(() => res.json({ message: 'Message sent' }))
+					.then(() => res.json({ message: 'Message sent', ads: ads }))
 					.catch((err) => console.log(err))
 			}
 		})

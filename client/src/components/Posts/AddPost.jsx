@@ -260,7 +260,6 @@ const AddPost = (props) => {
 												latitude: event.lngLat.lat,
 												longitude: event.lngLat.lng,
 											})
-											console.log(locationMarker)
 										}}
 									/>
 

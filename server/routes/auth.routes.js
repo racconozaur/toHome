@@ -22,7 +22,7 @@ router.post(
 			if (!errors.isEmpty()) {
 				return res
 					.status(400)
-					.json({ message: 'Uncorrect request', errors })
+					.json({ message: 'Incorrect request', errors })
 			}
 			const { email, password, number, name } = req.body
 			const candidate = await User.findOne({ email })
@@ -59,6 +59,7 @@ router.post('/login', async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' })
 		}
+		// compares encrypted pass with default
 		const isPassValid = bcrypt.compareSync(password, user.password)
 		if (!isPassValid) {
 			return res.status(400).json({ message: 'Invalid password' })

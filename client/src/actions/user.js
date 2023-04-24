@@ -16,6 +16,7 @@ export const registration = async (email, password, number, name) => {
 }
 
 export const login = (email, password) => {
+	// save user data in state 
 	return async (dispatch) => {
 		try {
 			const response = await axios.post(`login`, {

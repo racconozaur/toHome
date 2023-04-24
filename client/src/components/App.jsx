@@ -19,8 +19,6 @@ function App() {
 	const isAuth = useSelector((state) => state.user.isAuth)
 	const isAdmin = useSelector((state) => state.user.isAdmin)
 
-	console.log(isAdmin);
-
 	const dispatch = useDispatch()
 
 	const darkModeHandler = () => {

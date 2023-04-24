@@ -1,7 +1,7 @@
-import React, {  useState } from 'react'
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
+import React, { useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import ReactMapGL, { Marker, NavigationControl, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-
 
 const MapLocal = (props) => {
 	const [viewport, setViewport] = useState({
@@ -12,29 +12,41 @@ const MapLocal = (props) => {
 		height: '100vh',
 	})
 
+	// const [selectedHome, setSelectedHome] = useState(null)
+
 	return (
+		<div className=' h-screen'>
+			<ReactMapGL
+				{...viewport}
+				mapStyle='mapbox://styles/mapbox/streets-v11'
+				mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+				onMove={(newViewport) => setViewport(newViewport)}
+			>
+				{props.postData.map((post) => (
+					<Marker
+						className=' hover: cursor-pointer'
+						key={post._id}
+						latitude={post.location.latitude}
+						longitude={post.location.longitude}
+						// onClick={() => {
+						// 	setSelectedHome(post)
+						// }}
+					/>
+				))}
+				<NavigationControl position='bottom-right' />
+			</ReactMapGL>
 
-			<div className=' h-screen'>
-				<ReactMapGL
-					{...viewport}
-					mapStyle='mapbox://styles/mapbox/streets-v11'
-					mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-					onMove={(newViewport) => setViewport(newViewport) }
-				>	
-
-					{
-						props.postData.map(post => (
-							<Marker
-								key={post._id}
-								latitude={post.location.latitude}
-								longitude={post.location.longitude}
-							/>
-						))
-					}
-					<NavigationControl position='bottom-right' />
-				</ReactMapGL>
-			</div>
-
+			{/* {selectedHome ? (
+				<Popup
+					longitude={selectedHome.location.longitude}
+					latitude={selectedHome.location.latitude}
+					onClose={() => setSelectedHome(null)}
+					closeOnMove={true}
+				>
+					<p>{selectedHome.title}</p>
+				</Popup>
+			) : null} */}
+		</div>
 	)
 }
 

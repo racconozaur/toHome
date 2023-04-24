@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 const config = require('config')
 const http = require('http');
 const authRouter = require('./routes/auth.routes')
+const postRouter = require('./routes/post.routes')
+const commentRouter = require('./routes/comment.routes')
+const adsRouter = require('./routes/ads.routes')
+
 const corsModdleware = require('./middleware/cors.middleware')
 
 const { createServer } = require("http");
@@ -23,7 +27,10 @@ const server = http.createServer(app)
 app.use(corsModdleware)
 
 app.use(express.json())
-app.use('/api/auth', authRouter)
+app.use('/api', authRouter)
+app.use('/api', postRouter)
+app.use('/api', commentRouter)
+app.use('/api', adsRouter)
 
 // io.on("connection", (socket) => {
 //     console.log(`User Connected: ${socket.id}`);

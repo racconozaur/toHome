@@ -12,7 +12,7 @@ const multer = require('multer')
 const path = require('path')
 const cloudinary = require('../helpers/uploadImageHelper')
 const Ads = require('../models/Ads')
-const { log } = require('console')
+
 router.post(
 	'/registration',
 	[
@@ -166,12 +166,10 @@ router.get(`/getoneuser/:email`, async (req, res) => {
 	}
 })
 
-// posts
+// posts routes
 
 // muler storage
-
 const storage = multer.diskStorage({
-	// destination: 'uploads',
 	filename: function (req, file, cb) {
 		cb(null, Date.now() + '-' + file.originalname)
 	},
@@ -349,21 +347,6 @@ router.patch(`/likepost/:id`, async (req, res) => {
 	}
 })
 
-// router.patch(`/dislikepost/:id`,
-//     async (req, res) => {
-//         try {
-//             const post  = await Recomendation.findOne({"_id": req.params.id})
-//             const {username} = req.body
-//             // post.likes.pop(username)
-//             post.likes = post.likes.filter((e) => e !== username)
-//             post.save()
-//             return res.status(204).json({})
-//         } catch (e) {
-//             console.log(e)
-//             res.send({message: "Server error"})
-//         }
-
-// })
 
 router.get(`/getonepost/:postid`, async (req, res) => {
 	try {
@@ -439,19 +422,7 @@ router.patch(`/denypostfrom/:id`, async (req, res) => {
 	}
 })
 
-// router.get(`/notmoderatedposts`,
-//     async (req, res) => {
-//         try {
-//             const post = await Recomendation.find({"moderated": false})
-//             return res.json(post)
-//         } catch (e) {
-//             console.log(e)
-//             res.send({message: "Server error"})
-//         }
-
-//     })
-
-// comment
+// comments routes
 
 router.post(
 	'/comment',
@@ -496,7 +467,7 @@ router.get(`/getcommentsfrom/:postId`, async (req, res) => {
 	}
 })
 
-// ads
+// ads routes
 
 router.post('/postads', async (req, res) => {
 	try {

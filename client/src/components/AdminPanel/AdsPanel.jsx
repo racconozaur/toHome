@@ -11,7 +11,6 @@ const AdsPanel = () => {
 	const [image, setImage] = useState()
 	const [link, setLink] = useState('')
 	const [description, setDescription] = useState('')
-
 	const [currentAds, setCurrentAds] = useState([])
 
 	const dragStartHandler = (e) => {
@@ -39,12 +38,13 @@ const AdsPanel = () => {
 			formData.append('link', link)
 			formData.append('description', description)
 
-			sendAds(formData).then(res => setCurrentAds(prev => [...prev, res]))
+			sendAds(formData).then((res) =>
+				setCurrentAds((prev) => [...prev, res])
+			)
 
 			setImage()
 			setLink('')
 			setDescription('')
-			// getAllAds().then((res) => setCurrentAds(res))
 		}
 	}
 
@@ -54,8 +54,6 @@ const AdsPanel = () => {
 			setCurrentAds([])
 		}
 	}, [])
-
-	console.log(currentAds)
 
 	const ads = currentAds.map((e) => {
 		return (
@@ -73,9 +71,6 @@ const AdsPanel = () => {
 	const deleteAdsHandler = async () => {
 		deleteAds()
 		setCurrentAds([])
-		// setTimeout(() => {
-		// 	window.location.reload()
-		// }, 500)
 	}
 
 	return (

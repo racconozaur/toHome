@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import MapLocal from '../Map/MapLocal'
 import PostsList from './PostsList'
-import axios from '../../handlers/axiosHandler'
 import { getAllActivePosts } from '../../actions/user'
 
 const MapView = (props) => {

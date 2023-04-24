@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { acceptPostFrom, denyPostFrom } from '../../actions/user'
 import Button from '../../utils/button/Button'
-import io from 'socket.io-client'
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
 import MapCard from '../Map/MapCard'
+
+// import io from 'socket.io-client'
 
 // const socket = io.connect('http://localhost:5000')
 
@@ -15,8 +15,8 @@ const PostInfo = (props) => {
 
 	const { t } = useTranslation()
 
-	const message = 'hello'
-	const room = props.sender
+	// const message = 'hello'
+	// const room = props.sender
 
 	// socket.emit('join_room', props.sender)
 

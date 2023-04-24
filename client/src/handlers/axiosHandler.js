@@ -1,7 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
 
-axios.defaults.baseURL = process.env.REACT_APP_BACK_API;
+axios.defaults.baseURL = process.env.REACT_APP_BACK_API
 
-
-
-export default axios;
+export default axios

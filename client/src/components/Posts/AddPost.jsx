@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Input from '../../utils/input/Input'
 import { useTranslation } from 'react-i18next'
 import { BsImage } from 'react-icons/bs'
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl'
-import Geocoder from 'mapbox-gl-geocoder'
+// import Geocoder from 'mapbox-gl-geocoder'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
@@ -45,7 +45,7 @@ const AddPost = (props) => {
 		})
 	}
 
-	const [address, setAddress] = useState('')
+	// const [address, setAddress] = useState('')
 
 	const [drag, setDrag] = useState(false)
 
@@ -233,8 +233,8 @@ const AddPost = (props) => {
 				/>
 
 				<p className='mt-4 mb-2'>
-					{t('Location')}: Longitude: {locationMarker.longitude.toFixed(4)} |
-					Latitude:
+					{t('Location')}: Longitude:{' '}
+					{locationMarker.longitude.toFixed(4)} | Latitude:
 					{locationMarker.latitude.toFixed(4)}
 				</p>
 				<p>{t('LocTxt')}</p>
@@ -242,7 +242,9 @@ const AddPost = (props) => {
 					<ReactMapGL
 						{...viewport}
 						mapStyle='mapbox://styles/mapbox/streets-v11'
-						mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+						mapboxApiAccessToken={
+							process.env.REACT_APP_MAPBOX_TOKEN
+						}
 						onMove={(newViewport) => setViewport(newViewport)}
 						onClick={handleMapClick}
 					>
@@ -261,7 +263,7 @@ const AddPost = (props) => {
 											console.log(locationMarker)
 										}}
 									/>
-									
+
 									<NavigationControl position='bottom-right' />
 								</>
 							)}

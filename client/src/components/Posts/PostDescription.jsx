@@ -33,6 +33,7 @@ const PostDescription = (props) => {
 	const [newPrice, setNewPrice] = useState(0)
 	const [newRooms, setNewRooms] = useState(0)
 	const [newSquare, setNewSquare] = useState(0)
+	// eslint-disable-next-line no-unused-vars
 	const [newLocation, setNewLocation] = useState('')
 	const [newDescription, setNewDescription] = useState('')
 

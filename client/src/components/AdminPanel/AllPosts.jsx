@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { getAllActivePosts } from '../../actions/user';
-import PostInfo from './PostInfo';
+import React, { useEffect, useState } from 'react'
+import { getAllActivePosts } from '../../actions/user'
+import PostInfo from './PostInfo'
 
 const AllPosts = () => {
+	const [allActivePosts, setAllActivePosts] = useState([])
 
-    const [allActivePosts, setAllActivePosts] = useState([])
+	useEffect(() => {
+		getAllActivePosts().then((res) => setAllActivePosts(res))
+		return () => {
+			setAllActivePosts([])
+		}
+	}, [])
 
-    useEffect(() => {
-        getAllActivePosts().then((res) => setAllActivePosts(res))
-        return() => {
-            setAllActivePosts([])
-        }
-    }, [])
-
-    const allModeratedPosts = allActivePosts.map((e) => {
+	const allModeratedPosts = allActivePosts.map((e) => {
 		return (
 			<PostInfo
 				key={e._id}
@@ -36,11 +35,11 @@ const AllPosts = () => {
 		)
 	})
 
-    return (
-        <div className='flex flex-col w-10/12 ml-60 -z-10'>
+	return (
+		<div className='flex flex-col w-10/12 ml-60 -z-10'>
 			{allModeratedPosts}
 		</div>
-    );
-};
+	)
+}
 
-export default AllPosts;
+export default AllPosts

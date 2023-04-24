@@ -15,57 +15,6 @@ const PostsWrapper = (props) => {
 
 	const [value, setValue] = useState('')
 
-	// const [sorted, setSorted] = useState(false)
-
-	// const sortedPosts = postData.sort((a, b) => {
-	// 	return +b.rate - +a.rate
-	// })
-
-	// const filteredPosts = postData.filter((post) => {
-	// 	return post.title.toLowerCase().includes(value.toLowerCase())
-	// })
-
-	// const allPosts = postData.map((e) => {
-	// 	return (
-	// 		<Post
-	// 			key={e._id}
-	// 			id={e._id}
-	// 			sender={e.sender}
-	// 			title={e.title}
-	// 			content={e.content}
-	// 			img={e.image}
-	// 			location={e.location}
-	// 			price={e.price}
-	// 			square={e.square}
-	// 			status={e.status}
-	// 			type={e.type}
-	// 			likes={e.likes}
-	// 			number={e.number}
-	// 			rooms={e.rooms}
-	// 			moderated={e.moderated}
-	// 		/>
-	// 	)
-	// })
-
-	// const allSortedPosts = sortedPosts.map((e) => (
-	// 	<Post
-	// 		key={e._id}
-	// 		id={e._id}
-	// 		sender={e.sender}
-	// 		title={e.title}
-	// 		content={e.content}
-	// 		img={e.image}
-	// 		location={e.location}
-	// 		price={e.price}
-	// 		square={e.square}
-	// 		status={e.status}
-	// 		type={e.type}
-	// 		likes={e.likes}
-	// 		number={e.number}
-	// 		rooms={e.rooms}
-	// 	/>
-	// ))
-
 	let { path, url } = useRouteMatch()
 
 	return (

@@ -35,8 +35,6 @@ const AllUsers = () => {
 		/>
 	))
 
-	console.log(userList);
-
 	return (
 		<div className='flex flex-col w-10/12 ml-60 -z-10'>
 			<div className='overflow-x-auto'>

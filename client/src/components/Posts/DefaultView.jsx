@@ -15,7 +15,6 @@ const DefaultView = (props) => {
 
 	const changeShowFilter = () => {
 		setShowFilter((prev) => !prev)
-		console.log(showFilter)
 	}
 
 	useEffect(() => {

@@ -93,7 +93,7 @@ const User = (props) => {
 					</div>
 					<div className='flex flex-col-reverse md:flex-col md:items-end justify-between mt-4 md:mt-0'>
 						<div className='flex flex-col'>
-							{userInfo.status === 'active' ? (
+							{userInfo.status === 'active' ||userInfo.role === 'admin' ? (
 								<Link
 									to={{
 										pathname: '/addpost',

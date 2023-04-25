@@ -16,7 +16,7 @@ export const registration = async (email, password, number, name) => {
 }
 
 export const login = (email, password) => {
-	// save user data in state 
+	// save user data in state
 	return async (dispatch) => {
 		try {
 			const response = await axios.post(`login`, {
@@ -87,18 +87,7 @@ export const getoneuser = async (email) => {
 
 export const getAllUserInfo = async () => {
 	try {
-		const res = await axios.get(
-			`allusers`,
-
-			{
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem(
-						'token'
-					)}`,
-				},
-			}
-		)
-
+		const res = await axios.get(`allusers`)
 		return res.data
 	} catch (e) {
 		console.log(e)
@@ -198,9 +187,7 @@ export const getAllActivePosts = async () => {
 
 			{
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem(
-						'token'
-					)}`,
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
 				},
 			}
 		)
@@ -239,21 +226,19 @@ export const getOnePost = async (postId) => {
 
 export const getAllNotActivePosts = async () => {
 	try {
-		const res = await axios.get(`allnotactiveposts`,
-	)
+		const res = await axios.get(`allnotactiveposts`)
 		return res.data
 	} catch (e) {
-		console.log(e);
+		console.log(e)
 	}
 }
 
 export const getAllPosts = async () => {
 	try {
-		const res = await axios.get(`/allposts`,
-	)
+		const res = await axios.get(`/allposts`)
 		return res.data
 	} catch (e) {
-		console.log(e);
+		console.log(e)
 	}
 }
 
@@ -281,19 +266,20 @@ export const getCommentsFrom = async (postId) => {
 	}
 }
 
-// location 
+// location
 
 export const getLocatoinPlace = async (longitude, latitude, key) => {
 	try {
-		const res = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${key}`)
+		const res = await axios.get(
+			`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${key}`
+		)
 		return res.data
 	} catch (e) {
 		alert(e.response.data.message)
 	}
 }
 
-
-// ads 
+// ads
 
 export const sendAds = async (formData) => {
 	try {
@@ -308,11 +294,10 @@ export const sendAds = async (formData) => {
 
 export const getAllAds = async () => {
 	try {
-		const res = await axios.get(`/allAds`,
-	)
+		const res = await axios.get(`/allAds`)
 		return res.data
 	} catch (e) {
-		console.log(e);
+		console.log(e)
 	}
 }
 

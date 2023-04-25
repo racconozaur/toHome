@@ -68,8 +68,8 @@ const User = (props) => {
 
 	return (
 		<>
-			<div className=' bg-white w-full h-full min-h-full container mx-auto py-9 dark:bg-slate-800'>
-				<div className=' w-10/12 md:h-80 border-2 rounded-xl border-cblue mx-auto px-4 lg:px-36 py-8 flex flex-col md:flex-row justify-between text-cblue dark:border-white dark:text-slate-50'>
+			<div className={` bg-white w-full h-auto container mx-auto py-9 dark:bg-slate-800 relative`}>
+				<div className=' w-10/12 md:h-80 border-2 z-10 rounded-xl border-cblue mx-auto px-4 lg:px-36 py-8 flex flex-col md:flex-row justify-between text-cblue dark:border-white dark:text-slate-50'>
 					<div>
 						<div className='flex items-center'>
 							<div className='flex justify-center items-center bg-slate-50 w-24 h-24 text-slate-800 p-4 rounded-full text-4xl font-bold'>
@@ -91,7 +91,7 @@ const User = (props) => {
 							{t('Registeration Date')}: {userInfo.date}
 						</p>
 					</div>
-					<div className='flex flex-col-reverse md:items-end justify-between mt-4 md:mt-0'>
+					<div className='flex flex-col-reverse md:flex-col md:items-end justify-between mt-4 md:mt-0'>
 						<div className='flex flex-col'>
 							{userInfo.status === 'active' ? (
 								<Link
@@ -150,6 +150,7 @@ const User = (props) => {
 				</div>
 
 				<UserPosts email={email} />
+				<div className=' absolute w-full h-screen bg-white z-0 dark:bg-slate-800'></div>
 			</div>
 
 			{/* <Switch>

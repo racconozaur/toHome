@@ -40,8 +40,8 @@ const DefaultView = (props) => {
 	})
 
 	return (
-		<div className='w-10/12 container mx-auto flex flex-col-reverse justify-between md:flex-row'>
-			<div className=' w-fill md:w-2/3 '>
+		<div className='w-10/12 container mx-auto flex flex-col-reverse justify-between md:flex-row '>
+			<div className=' w-fill md:w-2/3 relative'>
 				<h2 className=' text-black text-2xl font-medium ml-10 dark:text-slate-50'>
 					{t('Results')}
 				</h2>

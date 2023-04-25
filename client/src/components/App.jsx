@@ -52,7 +52,7 @@ function App() {
 				handleLenguageChange={handleLenguageChange}
 				language={language}
 			/>
-			<main className='px-4 mt-[70px] lg:px-0 h-full'>
+			<main className='px-4 mt-[70px] lg:px-0 h-screen'>
 				<Suspense
 					fallback={
 						<div className='flex justify-center'>
@@ -118,3 +118,15 @@ function App() {
 }
 
 export default App
+
+
+
+// deploy
+
+// https://to-home-client-8j6waoesl-jasafayz01-gmailcom.vercel.app/all
+
+// https://to-home-client-jasafayz01-gmailcom.vercel.app
+
+// https://to-home-client-git-master-jasafayz01-gmailcom.vercel.app
+
+// https://to-home-client.vercel.app

@@ -16,7 +16,7 @@ const MapCard = (props) => {
 			<ReactMapGL
 				{...viewport}
 				mapStyle='mapbox://styles/mapbox/streets-v11'
-				mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+				mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
 				onMove={(newViewport) => setViewport(newViewport)}
 			>
 				{props.location.latitude && props.location.longitude && (

@@ -18,7 +18,7 @@ const PostsWrapper = (props) => {
 	let { path, url } = useRouteMatch()
 
 	return (
-		<div className=' bg-white w-full h-full min-h-full container mx-auto dark:bg-slate-800'>
+		<div className=' bg-white w-full container mx-auto dark:bg-slate-800'>
 			<div className='py-9 w-10/12 flex justify-between container mx-auto'>
 				<div className='flex items-center text-lg w-full lg:w-4/12'>
 					<HiOutlineSearch

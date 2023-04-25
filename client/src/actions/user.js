@@ -251,7 +251,9 @@ export const sendComment = async (postId, comment, author) => {
 			comment,
 			author,
 		})
+		const newComment = response.data.newComment
 		alert(response.data.message)
+		return newComment
 	} catch (e) {
 		alert(e.response.data.message)
 	}

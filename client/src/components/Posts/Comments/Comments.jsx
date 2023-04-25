@@ -16,7 +16,9 @@ const Comments = (props) => {
 		if (comment.trim() === '') {
 			alert('ur data is empty')
 		} else {
-			sendComment(props.postId, comment, user).then(setComment([]))
+			sendComment(props.postId, comment, user)
+				.then((res) => setComments((prev) => [...prev, res]))
+				.then(setComment(''))
 		}
 	}
 

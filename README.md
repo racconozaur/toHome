@@ -1,6 +1,8 @@
 # toHome BIS Project
 ## _Final Task _
 
+Deploy application: https://to-home-client.vercel.app/all 
+
 Stack:
 
 - React
